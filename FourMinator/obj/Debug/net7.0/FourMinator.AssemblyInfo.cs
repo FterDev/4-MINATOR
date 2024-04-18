@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FourMinator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8575295c9f33ef1797b49935cda4ebd69a8a42ce")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("FourMinator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FourMinator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

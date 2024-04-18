@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Repos\\4-mintaor-be\\FourMinator\\FourMinator\\FourMinator.csproj": {}
+    "/home/ft/Repos/4-MINATOR/FourMinator/FourMinator.csproj": {}
   },
   "projects": {
-    "C:\\Repos\\4-mintaor-be\\FourMinator\\FourMinator\\FourMinator.csproj": {
+    "/home/ft/Repos/4-MINATOR/FourMinator/FourMinator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Repos\\4-mintaor-be\\FourMinator\\FourMinator\\FourMinator.csproj",
+        "projectUniqueName": "/home/ft/Repos/4-MINATOR/FourMinator/FourMinator.csproj",
         "projectName": "FourMinator",
-        "projectPath": "C:\\Repos\\4-mintaor-be\\FourMinator\\FourMinator\\FourMinator.csproj",
-        "packagesPath": "C:\\Users\\ft\\.nuget\\packages\\",
-        "outputPath": "C:\\Repos\\4-mintaor-be\\FourMinator\\FourMinator\\obj\\",
+        "projectPath": "/home/ft/Repos/4-MINATOR/FourMinator/FourMinator.csproj",
+        "packagesPath": "/home/ft/.nuget/packages/",
+        "outputPath": "/home/ft/Repos/4-MINATOR/FourMinator/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ft\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/ft/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -56,11 +49,14 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.117/RuntimeIdentifierGraph.json"
         }
       }
     }
