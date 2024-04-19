@@ -1,13 +1,12 @@
-using Xunit;
-using Moq;
-using FluentAssertions;
+using NUnit.Framework;
 using Fourminator.Auth;
 
 namespace FourMinator.Auth.UnitTests
 {
+    [TestFixture]
     public class AuthZeroAuthenticatorTests
     {
-        [Fact]
+        [Test]
         public void GenerateAuthKey_WhenCalled_ShouldReturnAuthKey()
         {
             // Arrange
@@ -18,8 +17,10 @@ namespace FourMinator.Auth.UnitTests
             var result = AuthZeroAuthenticator.GenerateAuthKey();
 
             // Assert
-            result.Should().Be(awaitedResult);
+            Assert.That(result, Is.EqualTo(awaitedResult));
           
         }
     }
+
+    
 }
