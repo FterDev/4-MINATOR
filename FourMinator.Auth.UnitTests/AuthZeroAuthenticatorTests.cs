@@ -60,6 +60,21 @@ namespace FourMinator.Auth.UnitTests
             // Assert
             Assert.That(result.Any(char.IsDigit), Is.True);
         }
+
+        [Test]
+        public void DecodeAuthKey_OnCall_ReturnDecodedAuthKey()
+        {
+            // Arrange
+            var AuthZeroAuthenticator = new AuthZeroAuthenticator();
+            var authKeyBase64 = "MlZLcGhibmQ0ZUR1a0xKNVg3Z0g2ankxQlkzMzFUbE9xR3BqU2dRdjBDUE40YnNhb0N3SENBVldPZjRTVmZDdg==";
+            var awaitedResult = "2VKphbnd4eDukLJ5X7gH6jy1BY331TlOqGpjSgQv0CPN4bsaoCwHCAVWOf4SVfCv";
+
+            // Act
+            var result = AuthZeroAuthenticator.DecodeAuthKey(authKeyBase64);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(awaitedResult));
+        }
     }
 
     
