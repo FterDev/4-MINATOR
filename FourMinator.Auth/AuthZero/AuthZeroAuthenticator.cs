@@ -1,3 +1,5 @@
+using RandomString4Net;
+
 
 namespace Fourminator.Auth
 {
@@ -19,7 +21,8 @@ namespace Fourminator.Auth
 
         public string GenerateAuthKey()
         {
-            
+            var authKey = RandomString.GetString(Types.ALPHANUMERIC_MIXEDCASE , 64);
+            return authKey;
         }
 
         public void SaveAuthKey()
