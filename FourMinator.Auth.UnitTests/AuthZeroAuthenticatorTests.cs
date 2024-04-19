@@ -6,6 +6,17 @@ namespace FourMinator.Auth.UnitTests
 {
     public class AuthZeroAuthenticatorTests
     {
-        // Add your test methods here
+        [Fact]
+        public void GenerateAuthKey_WhenCalled_ShouldReturnAuthKey()
+        {
+            // Arrange
+            
+
+            // Act
+          
+
+            // Assert
+          
+        }
     }
 }
