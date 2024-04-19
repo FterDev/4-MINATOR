@@ -19,7 +19,7 @@ namespace Fourminator.Auth
 
         public string GenerateAuthKey()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void SaveAuthKey()
