@@ -11,7 +11,7 @@ namespace Fourminator.Auth
 
         public AuthZeroAuthenticator()
         {
-         
+            this.AuthKey = string.Empty;
         }
         
 
