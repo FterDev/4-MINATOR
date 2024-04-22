@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator", "FourMinator\FourMinator.csproj", "{28E8E9DD-B959-4834-9060-A719F308236A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator.Data", "FourMinator.Data\FourMinator.Data.csproj", "{9C772846-B09E-422D-A2F2-751E20499F08}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator.Auth", "FourMinator.Auth\FourMinator.Auth.csproj", "{EE30B632-1F54-4739-AFA8-F9743EE0C63C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator.Auth.UnitTests", "FourMinator.Auth.UnitTests\FourMinator.Auth.UnitTests.csproj", "{3D22D8A7-2A83-4FA8-B2A6-7033D63BB367}"
