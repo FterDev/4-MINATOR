@@ -1,3 +1,4 @@
+using System.Text;
 using RandomString4Net;
 
 
@@ -16,7 +17,9 @@ namespace Fourminator.Auth
 
         public string DecodeAuthKey(string authKeyBase64)
         {
-            throw new NotImplementedException();
+            byte[] authKeyBytes = Convert.FromBase64String(authKeyBase64);
+            string authKey = Encoding.UTF8.GetString(authKeyBytes);
+            return authKey;
         }
 
         public string GenerateAuthKey()
