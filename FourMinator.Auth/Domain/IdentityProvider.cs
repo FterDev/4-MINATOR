@@ -11,6 +11,7 @@ namespace Fourminator.Auth
         public string ClientSecret { get; set; }
         public string ClientId { get; set; }
         public string Domain { get; set; }
+        public string SourceIp { get; set; }
         public bool IsActive { get; set; }
     }
 }
