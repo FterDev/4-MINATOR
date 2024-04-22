@@ -4,12 +4,12 @@ using RandomString4Net;
 
 namespace Fourminator.Auth
 {
-    internal class AuthZeroAuthenticator : IAuthZeroAuthenticator
+    internal class IdentityProviderAuthenticator : IIdentityProviderAuthenticator
     {
 
         public string AuthKey { get; set; }
 
-        public AuthZeroAuthenticator()
+        public IdentityProviderAuthenticator()
         {
             this.AuthKey = string.Empty;
         }

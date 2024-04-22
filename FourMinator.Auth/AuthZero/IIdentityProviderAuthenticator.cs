@@ -1,7 +1,7 @@
 
 namespace Fourminator.Auth
 {
-    public interface IAuthZeroAuthenticator
+    public interface IIdentityProviderAuthenticator
     {
         string AuthKey { get; set; }
 
