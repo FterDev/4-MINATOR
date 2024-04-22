@@ -75,6 +75,22 @@ namespace FourMinator.Auth.UnitTests
             // Assert
             Assert.That(result, Is.EqualTo(awaitedResult));
         }
+
+
+        [Test]
+        public void DecodeAuthKey_OnCallWithEmptyString_ReturnsEmptyString()
+        {
+            // Arrange
+            var AuthZeroAuthenticator = new AuthZeroAuthenticator();
+            var authKeyBase64 = "";
+            var awaitedResult = "";
+
+            // Act
+            var result = AuthZeroAuthenticator.DecodeAuthKey(authKeyBase64);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(awaitedResult));
+        }
     }
 
     
