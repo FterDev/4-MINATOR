@@ -1,7 +1,7 @@
 using Fourminator.Auth;
 using Microsoft.EntityFrameworkCore;
 
-namespace FourMinator.Auth.Persistence
+namespace FourMinator.Auth
 {
     public class AuthContext : DbContext
     {
@@ -9,6 +9,11 @@ namespace FourMinator.Auth.Persistence
 
         public AuthContext(DbContextOptions<AuthContext> options) : base(options)
         {
+        }
+
+        public AuthContext()
+        {
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
