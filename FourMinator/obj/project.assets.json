@@ -283,7 +283,7 @@
           "Microsoft.Extensions.Logging": "8.0.0"
         },
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {
             "related": ".xml"
           }
         },
@@ -299,7 +299,7 @@
       "Microsoft.EntityFrameworkCore.Abstractions/8.0.4": {
         "type": "package",
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
             "related": ".xml"
           }
         },
@@ -348,7 +348,7 @@
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         },
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
             "related": ".xml"
           }
         },
@@ -364,7 +364,7 @@
           "Microsoft.Extensions.Primitives": "8.0.0"
         },
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.dll": {
             "related": ".xml"
           }
         },
@@ -387,7 +387,7 @@
           "Microsoft.Extensions.Primitives": "8.0.0"
         },
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.Extensions.Caching.Memory.dll": {
             "related": ".xml"
           }
         },
@@ -406,7 +406,7 @@
           "Microsoft.Extensions.Primitives": "8.0.0"
         },
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
             "related": ".xml"
           }
         },
@@ -425,7 +425,7 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
         },
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
             "related": ".xml"
           }
         },
@@ -441,7 +441,7 @@
       "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
         "type": "package",
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
             "related": ".xml"
           }
         },
@@ -482,7 +482,7 @@
           "Microsoft.Extensions.Options": "8.0.0"
         },
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.Extensions.Logging.dll": {
             "related": ".xml"
           }
         },
@@ -501,7 +501,7 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
         },
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
             "related": ".xml"
           }
         },
@@ -521,7 +521,7 @@
           "Microsoft.Extensions.Primitives": "8.0.0"
         },
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.Extensions.Options.dll": {
             "related": ".xml"
           }
         },
@@ -537,7 +537,7 @@
       "Microsoft.Extensions.Primitives/8.0.0": {
         "type": "package",
         "compile": {
-          "lib/net8.0/_._": {
+          "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
             "related": ".xml"
           }
         },
@@ -560,6 +560,48 @@
         },
         "runtime": {
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
+        }
+      },
+      "MySqlConnector/2.3.5": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "7.0.1"
+        },
+        "compile": {
+          "lib/net8.0/MySqlConnector.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/MySqlConnector.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Pomelo.EntityFrameworkCore.MySql/8.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Relational": "[8.0.2, 8.0.999]",
+          "MySqlConnector": "2.3.5"
+        },
+        "compile": {
+          "lib/net8.0/Pomelo.EntityFrameworkCore.MySql.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Pomelo.EntityFrameworkCore.MySql.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "RandomString4Net/1.8.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/RandomString4Net.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/RandomString4Net.dll": {}
         }
       },
       "System.CodeDom/4.4.0": {
@@ -827,6 +869,21 @@
         },
         "build": {
           "buildTransitive/netcoreapp3.1/_._": {}
+        }
+      },
+      "FourMinator.Auth/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.4",
+          "Pomelo.EntityFrameworkCore.MySql": "8.0.2",
+          "RandomString4Net": "1.8.0"
+        },
+        "compile": {
+          "bin/placeholder/FourMinator.Auth.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FourMinator.Auth.dll": {}
         }
       }
     }
@@ -1758,6 +1815,90 @@
         "mono.texttemplating.nuspec"
       ]
     },
+    "MySqlConnector/2.3.5": {
+      "sha512": "AmEfUPkFl+Ev6jJ8Dhns3CYHBfD12RHzGYWuLt6DfG6/af6YvOMyPz74ZPPjBYQGRJkumD2Z48Kqm8s5DJuhLA==",
+      "type": "package",
+      "path": "mysqlconnector/2.3.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net462/MySqlConnector.dll",
+        "lib/net462/MySqlConnector.xml",
+        "lib/net471/MySqlConnector.dll",
+        "lib/net471/MySqlConnector.xml",
+        "lib/net48/MySqlConnector.dll",
+        "lib/net48/MySqlConnector.xml",
+        "lib/net6.0/MySqlConnector.dll",
+        "lib/net6.0/MySqlConnector.xml",
+        "lib/net7.0/MySqlConnector.dll",
+        "lib/net7.0/MySqlConnector.xml",
+        "lib/net8.0/MySqlConnector.dll",
+        "lib/net8.0/MySqlConnector.xml",
+        "lib/netstandard2.0/MySqlConnector.dll",
+        "lib/netstandard2.0/MySqlConnector.xml",
+        "lib/netstandard2.1/MySqlConnector.dll",
+        "lib/netstandard2.1/MySqlConnector.xml",
+        "logo.png",
+        "mysqlconnector.2.3.5.nupkg.sha512",
+        "mysqlconnector.nuspec"
+      ]
+    },
+    "Pomelo.EntityFrameworkCore.MySql/8.0.2": {
+      "sha512": "XjnlcxVBLnEMbyEc5cZzgZeDyLvAniACZQ04W1slWN0f4rmfNzl98gEMvHnFH0fMDF06z9MmgGi/Sr7hJ+BVnw==",
+      "type": "package",
+      "path": "pomelo.entityframeworkcore.mysql/8.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net8.0/Pomelo.EntityFrameworkCore.MySql.dll",
+        "lib/net8.0/Pomelo.EntityFrameworkCore.MySql.xml",
+        "pomelo.entityframeworkcore.mysql.8.0.2.nupkg.sha512",
+        "pomelo.entityframeworkcore.mysql.nuspec"
+      ]
+    },
+    "RandomString4Net/1.8.0": {
+      "sha512": "K1BGz/+TI1BheJocKGv2OLa5clA8sSZfnDicTXgBIXWz59RT26ektCn7yvVv5AeNYAMA+LMPYSRQwHRztM/52w==",
+      "type": "package",
+      "path": "randomstring4net/1.8.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net20/RandomString4Net.dll",
+        "lib/net35/RandomString4Net.dll",
+        "lib/net40/RandomString4Net.dll",
+        "lib/net45/RandomString4Net.dll",
+        "lib/net451/RandomString4Net.dll",
+        "lib/net452/RandomString4Net.dll",
+        "lib/net46/RandomString4Net.dll",
+        "lib/net461/RandomString4Net.dll",
+        "lib/net462/RandomString4Net.dll",
+        "lib/net47/RandomString4Net.dll",
+        "lib/net471/RandomString4Net.dll",
+        "lib/net472/RandomString4Net.dll",
+        "lib/net48/RandomString4Net.dll",
+        "lib/net5.0-windows7.0/RandomString4Net.dll",
+        "lib/net5.0/RandomString4Net.dll",
+        "lib/net6.0-windows7.0/RandomString4Net.dll",
+        "lib/net6.0/RandomString4Net.dll",
+        "lib/net7.0-windows7.0/RandomString4Net.dll",
+        "lib/net7.0/RandomString4Net.dll",
+        "lib/net8.0-windows7.0/RandomString4Net.dll",
+        "lib/net8.0/RandomString4Net.dll",
+        "lib/netcoreapp2.0/RandomString4Net.dll",
+        "lib/netcoreapp2.1/RandomString4Net.dll",
+        "lib/netcoreapp2.2/RandomString4Net.dll",
+        "lib/netcoreapp3.0/RandomString4Net.dll",
+        "lib/netcoreapp3.1/RandomString4Net.dll",
+        "lib/netstandard2.0/RandomString4Net.dll",
+        "lib/netstandard2.1/RandomString4Net.dll",
+        "randomstring4net.1.8.0.nupkg.sha512",
+        "randomstring4net.nuspec"
+      ]
+    },
     "System.CodeDom/4.4.0": {
       "sha512": "2sCCb7doXEwtYAbqzbF/8UAeDRMNmPaQbU2q50Psg1J9KzumyVVCgKQY8s53WIPTufNT0DpSe9QRvVjOzfDWBA==",
       "type": "package",
@@ -2180,10 +2321,16 @@
         "system.threading.channels.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "FourMinator.Auth/1.0.0": {
+      "type": "project",
+      "path": "../FourMinator.Auth/FourMinator.Auth.csproj",
+      "msbuildProject": "../FourMinator.Auth/FourMinator.Auth.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "FourMinator.Auth >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.4"
     ]
   },
@@ -2213,7 +2360,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Repos\\4-MINATOR\\FourMinator.Auth\\FourMinator.Auth.csproj": {
+              "projectPath": "C:\\Repos\\4-MINATOR\\FourMinator.Auth\\FourMinator.Auth.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
