@@ -11,10 +11,18 @@ namespace FourMinator.Auth.Persistence
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                var connectionString = "server=localhost;port=3306;database=fourminator;user=fmadm;password=4minatorDev24";
+                var serverVersion = MySqlServerVersion.AutoDetect(connectionString);
+                optionsBuilder.UseMySql(connectionString, serverVersion);
+            }
+        }
+
 
         public DbSet<IdentityProvider> IdentityProviders { get; set; }
-
-        // DbSet properties for your entities go here
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
