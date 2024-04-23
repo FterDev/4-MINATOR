@@ -2,7 +2,7 @@
 
 namespace Fourminator.Auth
 {
-    public class IdentityProvider
+    internal class IdentityProvider
     {
         public Guid IdentityProviderId {get; set;}
         public string Name {get; set;}
