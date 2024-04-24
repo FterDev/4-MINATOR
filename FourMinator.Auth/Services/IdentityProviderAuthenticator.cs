@@ -38,14 +38,17 @@ namespace Fourminator.Auth
             return authKey;
         }
 
-        public void SaveAuthKey(string? identityProviderName, string? domain, string? sourceIp )
+        public void CreateIdentityProvider(string? identityProviderName, string? domain, string? sourceIp)
         {
             IdentityProvider.IdentityProviderId = Guid.NewGuid();
-            IdentityProvider.Name = identityProviderName == null ? "noname" : identityProviderName;
+            IdentityProvider.Name = identityProviderName == null ? "untitled" : identityProviderName;
             IdentityProvider.Domain = domain == null ? "" : domain;
             IdentityProvider.SourceIp = sourceIp == null ? "0.0.0.0" : sourceIp;
             IdentityProvider.IsActive = true;
+        }
 
+        public void SaveAuthKey(string? identityProviderName, string? domain, string? sourceIp )
+        {
             IdentityProvider identityProvider  = _identityProviderRepository.CreateIdentityProvider(IdentityProvider).Result;
 
             if(identityProvider == null)
