@@ -47,23 +47,14 @@ namespace Fourminator.Auth
             IdentityProvider.IsActive = true;
         }
 
-        public void SaveAuthKey(string? identityProviderName, string? domain, string? sourceIp )
-        {
-            IdentityProvider identityProvider  = _identityProviderRepository.CreateIdentityProvider(IdentityProvider).Result;
-
-            if(identityProvider == null)
-            {
-                throw new Exception("Failed to save new Identity Provider - NULL returned");
-            }
-
-            if(identityProvider.AuthKey != IdentityProvider.AuthKey)
-            {
-                throw new Exception("Failed to save new Identity Provider - AuthKey Mismatch");
-            }
-
-        }
+        
 
         public bool ValidateAuthKey()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveIdentityProvider()
         {
             throw new NotImplementedException();
         }
