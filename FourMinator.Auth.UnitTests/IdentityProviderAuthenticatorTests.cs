@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Fourminator.Auth;
+using Moq;
 
 namespace FourMinator.Auth.UnitTests
 {
@@ -9,8 +10,10 @@ namespace FourMinator.Auth.UnitTests
         [Test]
         public void GenerateAuthKey_WhenCalled_ShouldReturnAuthKey()
         {
+
             // Arrange
-            var identityProviderAuth = new IdentityProviderAuthenticator();
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
             var awaitedStringLength = 64;
 
             // Act
@@ -25,7 +28,8 @@ namespace FourMinator.Auth.UnitTests
         public void GenerateAuthKey_WhenCalled_ContainsUpperCase()
         {
             // Arrange
-            var identityProviderAuth = new IdentityProviderAuthenticator();
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
 
             // Act
             var result = identityProviderAuth.GenerateAuthKey();
@@ -39,7 +43,8 @@ namespace FourMinator.Auth.UnitTests
         public void GenerateAuthKey_WhenCalled_ContainsLowerCase()
         {
             // Arrange
-            var identityProviderAuth = new IdentityProviderAuthenticator();
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
 
             // Act
             var result = identityProviderAuth.GenerateAuthKey();
@@ -52,7 +57,8 @@ namespace FourMinator.Auth.UnitTests
         public void GenerateAuthKey_WhenCalled_ContainsNumber()
         {
             // Arrange
-            var identityProviderAuth = new IdentityProviderAuthenticator();
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
 
             // Act
             var result = identityProviderAuth.GenerateAuthKey();
@@ -65,7 +71,8 @@ namespace FourMinator.Auth.UnitTests
         public void DecodeAuthKey_OnCall_ReturnDecodedAuthKey()
         {
             // Arrange
-            var identityProviderAuth = new IdentityProviderAuthenticator();
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
             var authKeyBase64 = "MlZLcGhibmQ0ZUR1a0xKNVg3Z0g2ankxQlkzMzFUbE9xR3BqU2dRdjBDUE40YnNhb0N3SENBVldPZjRTVmZDdg==";
             var awaitedResult = "2VKphbnd4eDukLJ5X7gH6jy1BY331TlOqGpjSgQv0CPN4bsaoCwHCAVWOf4SVfCv";
 
@@ -81,7 +88,8 @@ namespace FourMinator.Auth.UnitTests
         public void DecodeAuthKey_OnCallWithEmptyString_ReturnsEmptyString()
         {
             // Arrange
-            var identityProviderAuth = new IdentityProviderAuthenticator();
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
             var authKeyBase64 = "";
             var awaitedResult = "";
 
@@ -91,6 +99,8 @@ namespace FourMinator.Auth.UnitTests
             // Assert
             Assert.That(result, Is.EqualTo(awaitedResult));
         }
+
+       
     }
 
     

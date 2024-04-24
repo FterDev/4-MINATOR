@@ -1,4 +1,7 @@
 using System.Text;
+using FourMinator.Auth;
+using FourMinator.Auth.Persistence.Repository;
+using Microsoft.EntityFrameworkCore;
 using RandomString4Net;
 
 
@@ -7,32 +10,54 @@ namespace Fourminator.Auth
     internal class IdentityProviderAuthenticator : IIdentityProviderAuthenticator
     {
 
-        public string AuthKey { get; set; }
+        private IIdentityProviderRepository _identityProviderRepository;
 
-        public IdentityProviderAuthenticator()
+        public IdentityProvider IdentityProvider { get; set; }
+
+
+        public IdentityProviderAuthenticator(IIdentityProviderRepository identityProviderRepository)
         {
-            this.AuthKey = string.Empty;
+            IdentityProvider = new IdentityProvider();
+            _identityProviderRepository = identityProviderRepository;
         }
-        
+
+       
 
         public string DecodeAuthKey(string authKeyBase64)
         {
             byte[] authKeyBytes = Convert.FromBase64String(authKeyBase64);
             string authKey = Encoding.UTF8.GetString(authKeyBytes);
-            this.AuthKey = authKey;
+            this.IdentityProvider.AuthKey = authKey;
             return authKey;
         }
 
         public string GenerateAuthKey()
         {
             var authKey = RandomString.GetString(Types.ALPHANUMERIC_MIXEDCASE , 64);
-            this.AuthKey = authKey;
+            this.IdentityProvider.AuthKey = authKey;
             return authKey;
         }
 
-        public void SaveAuthKey()
+        public void SaveAuthKey(string? identityProviderName, string? domain, string? sourceIp )
         {
-            throw new NotImplementedException();
+            IdentityProvider.IdentityProviderId = Guid.NewGuid();
+            IdentityProvider.Name = identityProviderName == null ? "noname" : identityProviderName;
+            IdentityProvider.Domain = domain == null ? "" : domain;
+            IdentityProvider.SourceIp = sourceIp == null ? "0.0.0.0" : sourceIp;
+            IdentityProvider.IsActive = true;
+
+            IdentityProvider identityProvider  = _identityProviderRepository.CreateIdentityProvider(IdentityProvider).Result;
+
+            if(identityProvider == null)
+            {
+                throw new Exception("Failed to save new Identity Provider - NULL returned");
+            }
+
+            if(identityProvider.AuthKey != IdentityProvider.AuthKey)
+            {
+                throw new Exception("Failed to save new Identity Provider - AuthKey Mismatch");
+            }
+
         }
 
         public bool ValidateAuthKey()
