@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using FluentAssertions;
 using Fourminator.Auth;
 using Moq;
 
@@ -100,7 +101,79 @@ namespace FourMinator.Auth.UnitTests
             Assert.That(result, Is.EqualTo(awaitedResult));
         }
 
-       
+
+        [Test]
+        public void CreateIdentityProvider_WhenCalledEmpty_IdentityProvdierHasDefaultValues()
+        {
+            // Arrange
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+
+
+
+            // Act
+            identityProviderAuth.CreateIdentityProvider();
+
+            // Assert
+            identityProviderAuth.IdentityProvider.Name.Should().Be("untitled");
+            identityProviderAuth.IdentityProvider.Domain.Should().Be("");
+            identityProviderAuth.IdentityProvider.SourceIp.Should().Be("0.0.0.0");
+        }
+
+        [Test]
+        public void CreateIdentityProvider_WhenCalledWithName_IdentityProvdierHasOnlyNameSet()
+        {
+            // Arrange
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+
+
+
+            // Act
+            identityProviderAuth.CreateIdentityProvider("Test");
+
+            // Assert
+            identityProviderAuth.IdentityProvider.Name.Should().Be("Test");
+            identityProviderAuth.IdentityProvider.Domain.Should().Be("");
+            identityProviderAuth.IdentityProvider.SourceIp.Should().Be("0.0.0.0");
+        }
+
+        [Test]
+        public void CreateIdentityProvider_WhenCalledWithNameDomain_IdentityProvdierHasOnlyNameDomainSet()
+        {
+            // Arrange
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+
+
+
+            // Act
+            identityProviderAuth.CreateIdentityProvider("Test", "test.com");
+
+            // Assert
+            identityProviderAuth.IdentityProvider.Name.Should().Be("Test");
+            identityProviderAuth.IdentityProvider.Domain.Should().Be("test.com");
+            identityProviderAuth.IdentityProvider.SourceIp.Should().Be("0.0.0.0");
+        }
+
+        [Test]
+        public void CreateIdentityProvider_WhenCalledWithAll_IdentityProvdierHasAllSet()
+        {
+            // Arrange
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+
+
+
+            // Act
+            identityProviderAuth.CreateIdentityProvider("Test", "test.com", "127.0.0.1");
+
+            // Assert
+            identityProviderAuth.IdentityProvider.Name.Should().Be("Test");
+            identityProviderAuth.IdentityProvider.Domain.Should().Be("test.com");
+            identityProviderAuth.IdentityProvider.SourceIp.Should().Be("127.0.0.1");
+        }
+
     }
 
     

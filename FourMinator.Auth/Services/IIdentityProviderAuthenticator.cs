@@ -8,7 +8,7 @@ namespace Fourminator.Auth
         string GenerateAuthKey();
         string DecodeAuthKey(string authKeyBase64);
 
-        void CreateIdentityProvider(string? identityProviderName, string? domain, string? sourceIp)
+        void CreateIdentityProvider(string? identityProviderName, string? domain, string? sourceIp);
         void SaveAuthKey(string identityProviderName, string domain, string sourceIp);
         bool ValidateAuthKey();
     }

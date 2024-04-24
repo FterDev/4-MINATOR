@@ -38,7 +38,7 @@ namespace Fourminator.Auth
             return authKey;
         }
 
-        public void CreateIdentityProvider(string? identityProviderName, string? domain, string? sourceIp)
+        public void CreateIdentityProvider(string? identityProviderName = null, string? domain = null, string? sourceIp = null)
         {
             IdentityProvider.IdentityProviderId = Guid.NewGuid();
             IdentityProvider.Name = identityProviderName == null ? "untitled" : identityProviderName;
