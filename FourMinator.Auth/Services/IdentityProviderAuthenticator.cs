@@ -27,7 +27,6 @@ namespace Fourminator.Auth
         {
             byte[] authKeyBytes = Convert.FromBase64String(authKeyBase64);
             string authKey = Encoding.UTF8.GetString(authKeyBytes);
-            this.IdentityProvider.AuthKey = authKey;
             return authKey;
         }
 
@@ -57,9 +56,17 @@ namespace Fourminator.Auth
         }
 
 
-        public bool ValidateAuthKey()
+        public bool ValidateAuthKey(string authKeyBase64)
         {
-            throw new NotImplementedException();
+            var authKey = DecodeAuthKey(authKeyBase64);
+            var identityProvider = _identityProviderRepository.GetIdentityProviderByKey(authKey).Result;
+
+            if (identityProvider == null)
+            {
+                return false;
+            }
+            IdentityProvider = identityProvider;
+            return true;
         }
 
         
