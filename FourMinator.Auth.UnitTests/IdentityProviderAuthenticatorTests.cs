@@ -213,6 +213,42 @@ namespace FourMinator.Auth.UnitTests
 
         }
 
+        [Test]
+        public void ValidateKey_WhenCalledWithValidKey_ReturnsTrue()
+        {
+            // Arrange
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var authKeyBase64 = "MlZLcGhibmQ0ZUR1a0xKNVg3Z0g2ankxQlkzMzFUbE9xR3BqU2dRdjBDUE40YnNhb0N3SENBVldPZjRTVmZDdg==";
+
+
+            var returnedIdentityProvider = identityProviderRepoMock.Setup(x => x.GetIdentityProviderByKey(It.IsAny<string>())).ReturnsAsync(new IdentityProvider());
+
+            //Act
+            var result = identityProviderAuth.ValidateAuthKey(authKeyBase64);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [Test]
+        public void ValidateKey_WhenCalledWithInvalidKey_ReturnsFalse()
+        {
+            // Arrange
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var authKeyBase64 = "MlZLcGhibmQ0ZUR1a0xKNVg3Z0g2ankxQlkzMzFUbE9xR3BqU2dRdjBDUE40YnNhb0N3SENBVldPZjRTVmZDdg==";
+
+            identityProviderRepoMock.Setup(x => x.GetIdentityProviderByKey(It.IsAny<string>())).ReturnsAsync((IdentityProvider)null);
+
+            //Act
+            var result = identityProviderAuth.ValidateAuthKey(authKeyBase64);
+
+            //Assert
+            result.Should().BeFalse();
+        }
     }
 
     
