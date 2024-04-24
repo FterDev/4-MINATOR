@@ -50,10 +50,6 @@ namespace Fourminator.Auth
         public void SaveIdentityProvider()
         {
             var newIdentityProvier = _identityProviderRepository.CreateIdentityProvider(IdentityProvider).Result;
-            if (newIdentityProvier == null)
-            {
-                throw new Exception("Failed to save identity provider - NULL error");
-            }
             if (newIdentityProvier.IdentityProviderId != IdentityProvider.IdentityProviderId)
             {
                 throw new Exception("Failed to save identity provider - ID mismatch error");

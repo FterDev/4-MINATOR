@@ -174,6 +174,45 @@ namespace FourMinator.Auth.UnitTests
             identityProviderAuth.IdentityProvider.SourceIp.Should().Be("127.0.0.1");
         }
 
+        [Test]
+        public void SaveIdentityProvider_WhenCalled_CallCreateIdentityProviderWithoutException()
+        {
+            // Arrange
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            identityProviderAuth.CreateIdentityProvider();
+            var identityProvider = identityProviderAuth.IdentityProvider;
+
+            var returnedIdentityProvider = identityProviderRepoMock.Setup(x => x.CreateIdentityProvider(It.IsAny<IdentityProvider>())).ReturnsAsync(identityProvider);
+
+            //Act
+            identityProviderAuth.SaveIdentityProvider();
+            
+            //Assert
+            identityProviderRepoMock.Verify(x => x.CreateIdentityProvider(It.IsAny<IdentityProvider>()), Times.Once);
+        }
+
+        [Test]
+        public void SaveIdentityProvider_WhenCalled_ThrowsExceptionIfIdentityProviderHasOtherId()
+        { 
+            // Arrange
+            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+
+            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            identityProviderAuth.CreateIdentityProvider();
+
+            var faultyIdentityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            faultyIdentityProviderAuth.CreateIdentityProvider();
+            var identityProvider = faultyIdentityProviderAuth.IdentityProvider;
+
+            var returnedIdentityProvider = identityProviderRepoMock.Setup(x => x.CreateIdentityProvider(It.IsAny<IdentityProvider>())).ReturnsAsync(identityProvider);
+
+            //Assert
+            Assert.That(() => identityProviderAuth.SaveIdentityProvider(), Throws.Exception);
+
+        }
+
     }
 
     
