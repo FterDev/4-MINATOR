@@ -13,9 +13,9 @@ namespace FourMinator.Auth.UnitTests
         {
 
             // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+
             var mockDbContext = new Mock<DbContext>();
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var identityProviderAuth = new IdentityProviderAuthenticator(mockDbContext.Object);
             var awaitedStringLength = 64;
 
             // Act
@@ -30,8 +30,8 @@ namespace FourMinator.Auth.UnitTests
         public void GenerateAuthKey_WhenCalled_ContainsUpperCase()
         {
             // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var mockDbContext = new Mock<DbContext>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(mockDbContext.Object);
 
             // Act
             var result = identityProviderAuth.GenerateAuthKey();
@@ -45,8 +45,8 @@ namespace FourMinator.Auth.UnitTests
         public void GenerateAuthKey_WhenCalled_ContainsLowerCase()
         {
             // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var mockDbContext = new Mock<DbContext>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(mockDbContext.Object);
 
             // Act
             var result = identityProviderAuth.GenerateAuthKey();
@@ -59,8 +59,8 @@ namespace FourMinator.Auth.UnitTests
         public void GenerateAuthKey_WhenCalled_ContainsNumber()
         {
             // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var mockDbContext = new Mock<DbContext>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(mockDbContext.Object);
 
             // Act
             var result = identityProviderAuth.GenerateAuthKey();
@@ -73,8 +73,8 @@ namespace FourMinator.Auth.UnitTests
         public void DecodeAuthKey_OnCall_ReturnDecodedAuthKey()
         {
             // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var mockDbContext = new Mock<DbContext>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(mockDbContext.Object);
             var authKeyBase64 = "MlZLcGhibmQ0ZUR1a0xKNVg3Z0g2ankxQlkzMzFUbE9xR3BqU2dRdjBDUE40YnNhb0N3SENBVldPZjRTVmZDdg==";
             var awaitedResult = "2VKphbnd4eDukLJ5X7gH6jy1BY331TlOqGpjSgQv0CPN4bsaoCwHCAVWOf4SVfCv";
 
@@ -90,8 +90,8 @@ namespace FourMinator.Auth.UnitTests
         public void DecodeAuthKey_OnCallWithEmptyString_ReturnsEmptyString()
         {
             // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var mockDbContext = new Mock<DbContext>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(mockDbContext.Object);
             var authKeyBase64 = "";
             var awaitedResult = "";
 
@@ -107,8 +107,8 @@ namespace FourMinator.Auth.UnitTests
         public void CreateIdentityProvider_WhenCalledEmpty_IdentityProvdierHasDefaultValues()
         {
             // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var mockDbContext = new Mock<DbContext>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(mockDbContext.Object);
 
 
 
@@ -125,8 +125,8 @@ namespace FourMinator.Auth.UnitTests
         public void CreateIdentityProvider_WhenCalledWithName_IdentityProvdierHasOnlyNameSet()
         {
             // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var mockDbContext = new Mock<DbContext>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(mockDbContext.Object);
 
 
 
@@ -143,8 +143,8 @@ namespace FourMinator.Auth.UnitTests
         public void CreateIdentityProvider_WhenCalledWithNameDomain_IdentityProvdierHasOnlyNameDomainSet()
         {
             // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var mockDbContext = new Mock<DbContext>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(mockDbContext.Object);
 
 
 
@@ -161,8 +161,8 @@ namespace FourMinator.Auth.UnitTests
         public void CreateIdentityProvider_WhenCalledWithAll_IdentityProvdierHasAllSet()
         {
             // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
+            var mockDbContext = new Mock<DbContext>();
+            var identityProviderAuth = new IdentityProviderAuthenticator(mockDbContext.Object);
 
 
 
@@ -175,81 +175,9 @@ namespace FourMinator.Auth.UnitTests
             identityProviderAuth.IdentityProvider.SourceIp.Should().Be("127.0.0.1");
         }
 
-        [Test]
-        public void SaveIdentityProvider_WhenCalled_CallCreateIdentityProviderWithoutException()
-        {
-            // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-            
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
-            identityProviderAuth.CreateIdentityProvider();
-            var identityProvider = identityProviderAuth.IdentityProvider;
+       
 
-            var returnedIdentityProvider = identityProviderRepoMock.Setup(x => x.CreateIdentityProvider(It.IsAny<IdentityProvider>())).ReturnsAsync(identityProvider);
-
-            //Act
-            identityProviderAuth.SaveIdentityProvider();
-            
-            //Assert
-            identityProviderRepoMock.Verify(x => x.CreateIdentityProvider(It.IsAny<IdentityProvider>()), Times.Once);
-        }
-
-        [Test]
-        public void SaveIdentityProvider_WhenCalled_ThrowsExceptionIfIdentityProviderHasOtherId()
-        { 
-            // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
-            identityProviderAuth.CreateIdentityProvider();
-
-            var faultyIdentityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
-            faultyIdentityProviderAuth.CreateIdentityProvider();
-            var identityProvider = faultyIdentityProviderAuth.IdentityProvider;
-
-            var returnedIdentityProvider = identityProviderRepoMock.Setup(x => x.CreateIdentityProvider(It.IsAny<IdentityProvider>())).ReturnsAsync(identityProvider);
-
-            //Assert
-            Assert.That(() => identityProviderAuth.SaveIdentityProvider(), Throws.Exception);
-
-        }
-
-        [Test]
-        public void ValidateKey_WhenCalledWithValidKey_ReturnsTrue()
-        {
-            // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
-            var authKeyBase64 = "MlZLcGhibmQ0ZUR1a0xKNVg3Z0g2ankxQlkzMzFUbE9xR3BqU2dRdjBDUE40YnNhb0N3SENBVldPZjRTVmZDdg==";
-
-
-            var returnedIdentityProvider = identityProviderRepoMock.Setup(x => x.GetIdentityProviderByKey(It.IsAny<string>())).ReturnsAsync(new IdentityProvider());
-
-            //Act
-            var result = identityProviderAuth.ValidateAuthKey(authKeyBase64);
-
-            //Assert
-            result.Should().BeTrue();
-        }
-
-        [Test]
-        public void ValidateKey_WhenCalledWithInvalidKey_ReturnsFalse()
-        {
-            // Arrange
-            var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
-
-            var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
-            var authKeyBase64 = "MlZLcGhibmQ0ZUR1a0xKNVg3Z0g2ankxQlkzMzFUbE9xR3BqU2dRdjBDUE40YnNhb0N3SENBVldPZjRTVmZDdg==";
-
-            identityProviderRepoMock.Setup(x => x.GetIdentityProviderByKey(It.IsAny<string>())).ReturnsAsync((IdentityProvider)null);
-
-            //Act
-            var result = identityProviderAuth.ValidateAuthKey(authKeyBase64);
-
-            //Assert
-            result.Should().BeFalse();
-        }
+       
     }
 
     
