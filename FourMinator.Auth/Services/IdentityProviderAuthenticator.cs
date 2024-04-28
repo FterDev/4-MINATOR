@@ -1,13 +1,11 @@
 using System.Text;
 using FourMinator.Auth;
-using FourMinator.Auth.Persistence.Repository;
-using Microsoft.EntityFrameworkCore;
 using RandomString4Net;
 
 
-namespace Fourminator.Auth
+namespace FourMinator.Auth
 {
-    internal class IdentityProviderAuthenticator : IIdentityProviderAuthenticator
+    public class IdentityProviderAuthenticator : IIdentityProviderAuthenticator
     {
 
         private IIdentityProviderRepository _identityProviderRepository;

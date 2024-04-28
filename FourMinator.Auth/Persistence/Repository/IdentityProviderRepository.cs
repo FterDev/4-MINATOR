@@ -1,12 +1,6 @@
-﻿using Fourminator.Auth;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace FourMinator.Auth.Persistence.Repository
+namespace FourMinator.Auth
 {
     internal class IdentityProviderRepository : IIdentityProviderRepository
     {

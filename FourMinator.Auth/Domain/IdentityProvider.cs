@@ -1,6 +1,6 @@
 
 
-namespace Fourminator.Auth
+namespace FourMinator.Auth
 {
     public class IdentityProvider
     {

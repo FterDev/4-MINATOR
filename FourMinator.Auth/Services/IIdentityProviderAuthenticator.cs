@@ -1,5 +1,5 @@
 
-namespace Fourminator.Auth
+namespace FourMinator.Auth
 {
     public interface IIdentityProviderAuthenticator
     {
