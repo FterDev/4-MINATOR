@@ -10,14 +10,17 @@ namespace FourMinator.Auth
         {
             _context = context;    
         }
-        public Task<bool> CreateUser(string nickname, string email)
+        public async Task<bool> CreateUser(string nickname, string email)
         {
-            throw new NotImplementedException();
+            var res = await  _context.AddAsync(new User { Nickname = nickname, Email = email });
+            _context.SaveChanges();
+            return res.State == EntityState.Added;
         }
 
-        public Task<User?> GetUserByEmail(string email)
+        public async Task<User?> GetUserByEmail(string email)
         {
-            throw new NotImplementedException();
+            var user = await _context.Set<User>().FirstOrDefaultAsync(u => u.Email == email);
+            return user;
         }
     }
     
