@@ -3,29 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator", "FourMinator\FourMinator.csproj", "{28E8E9DD-B959-4834-9060-A719F308236A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator", "FourMinator\FourMinator.csproj", "{28E8E9DD-B959-4834-9060-A719F308236A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator.Auth", "FourMinator.Auth\FourMinator.Auth.csproj", "{EE30B632-1F54-4739-AFA8-F9743EE0C63C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.Auth", "FourMinator.Auth\FourMinator.Auth.csproj", "{EE30B632-1F54-4739-AFA8-F9743EE0C63C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator.Auth.UnitTests", "FourMinator.Auth.UnitTests\FourMinator.Auth.UnitTests.csproj", "{3D22D8A7-2A83-4FA8-B2A6-7033D63BB367}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.Auth.UnitTests", "FourMinator.Auth.UnitTests\FourMinator.Auth.UnitTests.csproj", "{3D22D8A7-2A83-4FA8-B2A6-7033D63BB367}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{28E8E9DD-B959-4834-9060-A719F308236A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{28E8E9DD-B959-4834-9060-A719F308236A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28E8E9DD-B959-4834-9060-A719F308236A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28E8E9DD-B959-4834-9060-A719F308236A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C772846-B09E-422D-A2F2-751E20499F08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9C772846-B09E-422D-A2F2-751E20499F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C772846-B09E-422D-A2F2-751E20499F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9C772846-B09E-422D-A2F2-751E20499F08}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EE30B632-1F54-4739-AFA8-F9743EE0C63C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EE30B632-1F54-4739-AFA8-F9743EE0C63C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE30B632-1F54-4739-AFA8-F9743EE0C63C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,5 +27,11 @@ Global
 		{3D22D8A7-2A83-4FA8-B2A6-7033D63BB367}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D22D8A7-2A83-4FA8-B2A6-7033D63BB367}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D22D8A7-2A83-4FA8-B2A6-7033D63BB367}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE3AB9E8-8543-40EB-B951-56698957A7CD}
 	EndGlobalSection
 EndGlobal

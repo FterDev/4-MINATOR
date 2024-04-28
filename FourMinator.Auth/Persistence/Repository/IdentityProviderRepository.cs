@@ -2,7 +2,7 @@
 
 namespace FourMinator.Auth
 {
-    internal class IdentityProviderRepository : IIdentityProviderRepository
+    public class IdentityProviderRepository : IIdentityProviderRepository
     {
 
         private DbContext _context;

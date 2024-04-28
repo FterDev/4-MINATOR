@@ -1,4 +1,3 @@
-using Fourminator.Auth;
 using Microsoft.EntityFrameworkCore;
 
 namespace FourMinator.Auth

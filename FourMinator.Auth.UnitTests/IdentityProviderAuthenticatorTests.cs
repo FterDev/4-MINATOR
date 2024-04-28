@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using FluentAssertions;
-using Fourminator.Auth;
 using Moq;
 
 namespace FourMinator.Auth.UnitTests
