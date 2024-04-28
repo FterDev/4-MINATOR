@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using FluentAssertions;
 using Moq;
+using Microsoft.EntityFrameworkCore;
 
 namespace FourMinator.Auth.UnitTests
 {
@@ -13,6 +14,7 @@ namespace FourMinator.Auth.UnitTests
 
             // Arrange
             var identityProviderRepoMock = new Mock<IIdentityProviderRepository>();
+            var mockDbContext = new Mock<DbContext>();
             var identityProviderAuth = new IdentityProviderAuthenticator(identityProviderRepoMock.Object);
             var awaitedStringLength = 64;
 
