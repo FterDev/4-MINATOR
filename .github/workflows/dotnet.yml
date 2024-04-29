@@ -24,3 +24,18 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+  release:
+    name: Run Semantic-Release
+    needs: [build]
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup Node.js
+      uses: actions/setup-node@v4.0.2
+    - name: Install Semantic-Release
+      run: npm install semantic-release
+    - name: Run Semantic-Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: npx semantic-release
+    
