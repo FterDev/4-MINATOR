@@ -7,7 +7,7 @@ module.exports = {
     [
       '@semantic-release/github',
       {
-        assets: ['build/*.zip']  // If you want to upload build artifacts
+        assets: ['build/*.zip'] // If you want to upload build artifacts
       }
     ]
   ],
