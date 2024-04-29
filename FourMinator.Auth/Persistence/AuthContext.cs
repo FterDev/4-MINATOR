@@ -1,28 +1,22 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 
 namespace FourMinator.Auth
 {
     public class AuthContext : DbContext
     {
 
-
-        public AuthContext(DbContextOptions<AuthContext> options) : base(options)
-        {
-        }
-
-        public AuthContext()
-        {
-
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                var connectionString = "server=localhost;port=3306;database=fourminator;user=fmadm;password=4minatorDev24";
-                var serverVersion = MySqlServerVersion.AutoDetect(connectionString);
-                optionsBuilder.UseMySql(connectionString, serverVersion);
-            }
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.secret.json")
+                .Build();
+
+            var connectionString = configuration.GetConnectionString("AuthContext");
+            var serverVersion = MySqlServerVersion.AutoDetect(connectionString);
+            optionsBuilder.UseMySql(connectionString, serverVersion);
         }
 
 

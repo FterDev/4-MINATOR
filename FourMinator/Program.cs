@@ -10,11 +10,7 @@ using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 
-var connectionString = "server=localhost;port=3306;database=fourminator;user=fmadm;password=4minatorDev24";
-var serverVersion = MySqlServerVersion.AutoDetect(connectionString);
-
-
-builder.Services.AddDbContext<AuthContext>(options => options.UseMySql(connectionString, serverVersion));
+builder.Services.AddDbContext<AuthContext>();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(x.GetRequiredService<AuthContext>()));
 builder.Services.AddEndpointsApiExplorer();
