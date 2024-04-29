@@ -29,7 +29,7 @@ using (var scope = app.Services.CreateScope())
 if (args.FirstOrDefault() is { } arg && arg.StartsWith("newIdentityProvider="))
 {
     var identityProviderName = arg.Split('=')[1];
-    var newAuthenticator = app.Services.GetRequiredService<IdentityProviderAuthenticator>();
+    var newAuthenticator = new IdentityProviderAuthenticator(app.Services.GetRequiredService<AuthContext>());
     newAuthenticator.CreateIdentityProvider(identityProviderName);
     var authKey = newAuthenticator.GenerateAuthKey();
     newAuthenticator.SaveIdentityProvider();

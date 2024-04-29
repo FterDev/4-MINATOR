@@ -6,18 +6,17 @@ WORKDIR /app
 EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["FourMinator/FourMinator.csproj", "FourMinator/"]
 COPY ["FourMinator.Auth/FourMinator.Auth.csproj", "FourMinator.Auth/"]
 RUN dotnet restore "./FourMinator/FourMinator.csproj"
 COPY . .
 WORKDIR "/src/FourMinator"
-RUN dotnet build "./FourMinator.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./FourMinator.csproj"  -o /app/build
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./FourMinator.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+RUN dotnet publish "./FourMinator.csproj"  -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
