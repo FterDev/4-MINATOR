@@ -34,7 +34,7 @@ jobs:
       uses: actions/setup-node@v4.0.2
       with:
         node-version: 20
-        cache: 'npm'
+      
     - name: Install Semantic-Release
       run: npm install semantic-release
     - name: Run Semantic-Release
