@@ -28,9 +28,8 @@ using (var scope = app.Services.CreateScope())
 
 if (args.FirstOrDefault() is { } arg && arg.StartsWith("newIdentityProvider="))
 {
-    var dbContext = app.Services.GetRequiredService<AuthContext>();
     var identityProviderName = arg.Split('=')[1];
-    var newAuthenticator = new IdentityProviderAuthenticator(dbContext);
+    var newAuthenticator = app.Services.GetRequiredService<IdentityProviderAuthenticator>();
     newAuthenticator.CreateIdentityProvider(identityProviderName);
     var authKey = newAuthenticator.GenerateAuthKey();
     newAuthenticator.SaveIdentityProvider();
@@ -40,10 +39,13 @@ if (args.FirstOrDefault() is { } arg && arg.StartsWith("newIdentityProvider="))
 }
 
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 
-app.UseSwagger();
-app.UseSwaggerUI();
 
 app.UseAuthorization();
 
