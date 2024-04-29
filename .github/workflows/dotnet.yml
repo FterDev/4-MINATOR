@@ -31,9 +31,10 @@ jobs:
       uses: actions/setup-node@v4.0.2
       with:
         node-version: 20
+    - uses: actions/checkout@v4
     - name: Install Semantic-Release
       run: npm ci
-    - uses: actions/checkout@v4
+    
     - name: Run Semantic-Release
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
