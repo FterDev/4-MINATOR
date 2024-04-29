@@ -4,6 +4,10 @@
 
 *.secret.json
 
+#release
+node_modules/
+package-lock.json
+
 ## Build results
 [Dd]ebug/
 [Rr]elease/

@@ -33,7 +33,7 @@ jobs:
       with:
         node-version: 20
     - name: Install Semantic-Release
-      run: npm install --save-dev semantic-release
+      run: npm ci
     - name: Run Semantic-Release
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
