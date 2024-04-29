@@ -1,4 +1,9 @@
 # .NET Core / ASP.NET Core
+
+#Secret Settings
+
+*.secret.json
+
 ## Build results
 [Dd]ebug/
 [Rr]elease/
@@ -11,6 +16,7 @@ bin/
 *.user
 *.userosscache
 *.sln.docstates
+
 
 ## Visual Studio Code
 .vscode/
