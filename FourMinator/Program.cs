@@ -13,8 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = "server=localhost;port=3306;database=fourminator;user=fmadm;password=4minatorDev24";
 var serverVersion = MySqlServerVersion.AutoDetect(connectionString);
 
-builder.Services.AddControllers();
+
 builder.Services.AddDbContext<AuthContext>(options => options.UseMySql(connectionString, serverVersion));
+builder.Services.AddControllers();
+builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(x.GetRequiredService<AuthContext>()));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -23,11 +25,10 @@ var app = builder.Build();
 
 if (args.FirstOrDefault() is { } arg && arg.StartsWith("newIdentityProvider="))
 {
-    var identityProviderName = arg.Split('=')[1];
-    var dbContext = app.Services.GetRequiredService<AuthContext>();
-    var identityProviderRepo = new IdentityProviderRepository(dbContext);
-    var newAuthenticator = new IdentityProviderAuthenticator(identityProviderRepo);
 
+    var dbContext = app.Services.GetRequiredService<AuthContext>();
+    var identityProviderName = arg.Split('=')[1];
+    var newAuthenticator = new IdentityProviderAuthenticator(dbContext);
     newAuthenticator.CreateIdentityProvider(identityProviderName);
     var authKey = newAuthenticator.GenerateAuthKey();
     newAuthenticator.SaveIdentityProvider();

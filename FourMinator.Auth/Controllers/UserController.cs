@@ -12,7 +12,7 @@ namespace FourMinator.Auth
         private IUserRepository _userRepository;
         private IIdentityProviderAuthenticator _identityProviderAuthenticator;
         
-        public UserController(DbContext context, IIdentityProviderAuthenticator ipAuth)
+        public UserController(AuthContext context, IIdentityProviderAuthenticator ipAuth)
         {
             _userRepository = new UserRepository(context);
             _identityProviderAuthenticator = ipAuth;
