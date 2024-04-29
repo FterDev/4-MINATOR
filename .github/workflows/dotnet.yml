@@ -6,7 +6,6 @@ name: .NET Build and Test
 on:
   push:
     branches: [ "main" ]
-
 jobs:
   build:
     name: Build & Test
