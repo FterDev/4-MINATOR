@@ -34,7 +34,6 @@ jobs:
     - uses: actions/checkout@v4
     - name: Install Semantic-Release
       run: npm ci
-    
     - name: Run Semantic-Release
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
