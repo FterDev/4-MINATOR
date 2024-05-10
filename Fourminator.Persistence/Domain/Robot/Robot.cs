@@ -1,11 +1,7 @@
-﻿using FourMinator.Auth;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FourMinator.Auth.Persistence.Domain;
 
-namespace FourMinator.Robot
+
+namespace FourMinator.Persistence.Domain
 {
     internal class Robot
     {
@@ -18,8 +14,6 @@ namespace FourMinator.Robot
         public Int16 Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-
-
 
     }
 }
