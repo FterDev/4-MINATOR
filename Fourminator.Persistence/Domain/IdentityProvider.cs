@@ -1,6 +1,6 @@
 
 
-namespace FourMinator.Auth
+namespace FourMinator.Persistence.Domain
 {
     public class IdentityProvider
     {
