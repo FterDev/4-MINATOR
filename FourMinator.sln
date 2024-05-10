@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.Auth", "FourMin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.Auth.UnitTests", "FourMinator.Auth.UnitTests\FourMinator.Auth.UnitTests.csproj", "{3D22D8A7-2A83-4FA8-B2A6-7033D63BB367}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator.Game", "FourMinator.Game\FourMinator.Game.csproj", "{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator.Robot", "FourMinator.Robot\FourMinator.Robot.csproj", "{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{3D22D8A7-2A83-4FA8-B2A6-7033D63BB367}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D22D8A7-2A83-4FA8-B2A6-7033D63BB367}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D22D8A7-2A83-4FA8-B2A6-7033D63BB367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
