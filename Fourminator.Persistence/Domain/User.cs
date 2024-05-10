@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FourMinator.Auth
+namespace FourMinator.Auth.Persistence.Domain
 {
     public class User
     {
