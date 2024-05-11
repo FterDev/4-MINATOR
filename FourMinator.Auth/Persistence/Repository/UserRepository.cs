@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FourMinator.Auth
 {
-    internal class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly DbContext _context;
         public UserRepository(DbContext context) 
