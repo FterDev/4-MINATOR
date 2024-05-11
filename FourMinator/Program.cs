@@ -1,6 +1,9 @@
 using FourMinator.Auth;
 using FourMinator.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 
 
@@ -8,6 +11,19 @@ using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+var auth0domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    options.Authority = auth0domain;
+    options.Audience = builder.Configuration["Auth0:Audience"];
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        NameClaimType = ClaimTypes.NameIdentifier
+    };
+});
 
 
 builder.Services.AddDbContext<FourminatorContext>();
@@ -49,8 +65,11 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseAuthorization();
-
-app.MapControllers();
+app.UseAuthentication();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 
 
