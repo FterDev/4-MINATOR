@@ -56,6 +56,10 @@ namespace FourMinator.Auth
 
         public bool ValidateAuthKey(string authKeyBase64)
         {
+            if (!CheckBase64(authKeyBase64))
+            {
+                return false;
+            }
             var authKey = DecodeAuthKey(authKeyBase64);
             var identityProvider = _identityProviderRepository.GetIdentityProviderByKey(authKey).Result;
 
@@ -65,6 +69,19 @@ namespace FourMinator.Auth
             }
             IdentityProvider = identityProvider;
             return true;
+        }
+
+        private bool CheckBase64(string authKeyBase64)
+        {
+            try
+            {
+                Convert.FromBase64String(authKeyBase64);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         
