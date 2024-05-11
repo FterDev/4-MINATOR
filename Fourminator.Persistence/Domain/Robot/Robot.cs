@@ -16,13 +16,14 @@ namespace FourMinator.Persistence.Domain
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
     }
+
+    public enum RobotStatus
+    {
+        Offline = -1,
+        Online = 0,
+        Busy = 1,
+        Error = 2
+    }
 }
 
 
-public enum RobotStatus
-{
-    Offline = -1,
-    Online = 0,
-    Busy = 1,
-    Error = 2
-}
