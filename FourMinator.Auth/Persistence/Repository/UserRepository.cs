@@ -11,11 +11,10 @@ namespace FourMinator.Auth
         {
             _context = context;    
         }
-        public async Task<bool> CreateUser(string nickname, string email)
+        public async Task CreateUser(string nickname, string email)
         {
             var res = await  _context.AddAsync(new User { Nickname = nickname, Email = email });
             _context.SaveChanges();
-            return res.State == EntityState.Added;
         }
 
         public async Task<User?> GetUserByEmail(string email)
@@ -25,5 +24,5 @@ namespace FourMinator.Auth
         }
     }
     
-  
 }
+
