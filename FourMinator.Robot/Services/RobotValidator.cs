@@ -2,7 +2,7 @@
 using FourMinator.Persistence.Domain;
 
 
-namespace FourMinator.RobotService.Services
+namespace FourMinator.RobotServices
 {
     internal class RobotValidator : AbstractValidator<Robot>
     {
