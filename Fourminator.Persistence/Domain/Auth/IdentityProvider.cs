@@ -12,5 +12,10 @@ namespace FourMinator.Persistence.Domain
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        public object ToQueryable()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
