@@ -1,5 +1,5 @@
 using System.Text;
-using FourMinator.Auth;
+using FourMinator.Persistence.Domain;
 using Microsoft.EntityFrameworkCore;
 using RandomString4Net;
 
@@ -12,7 +12,7 @@ namespace FourMinator.Auth
         private IIdentityProviderRepository _identityProviderRepository;
 
         public IdentityProvider IdentityProvider { get; set; }
-
+        
 
         public IdentityProviderAuthenticator(DbContext context)
         {
