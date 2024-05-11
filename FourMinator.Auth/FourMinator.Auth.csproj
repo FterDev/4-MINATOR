@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Fourminator.Persistence\Fourminator.Persistence.csproj" />
+    <ProjectReference Include="..\Fourminator.Persistence\FourMinator.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
