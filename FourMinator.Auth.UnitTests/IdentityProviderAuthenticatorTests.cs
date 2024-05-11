@@ -151,5 +151,25 @@ namespace FourMinator.Auth.UnitTests
             result.Should().BeFalse();
             
         }
+
+
+        [Fact]
+        public void ValidateAuthKey_Should_Return_False_If_KeyIsNotBase64()
+        {
+            // Arrange
+            var identityProviderRepositoryMock = new Mock<IIdentityProviderRepository>();
+            var authenticator = new IdentityProviderAuthenticator(identityProviderRepositoryMock.Object)
+            {
+                IdentityProvider = new IdentityProvider()
+            };
+            var authKeyBase64 = "asdf"; 
+ 
+            // Act
+            var result = authenticator.ValidateAuthKey(authKeyBase64);
+
+            // Assert
+            result.Should().BeFalse();
+
+        }
     }
 }
