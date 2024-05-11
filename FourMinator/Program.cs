@@ -1,4 +1,5 @@
 using FourMinator.Auth;
+using FourMinator.Auth.Middleware;
 using FourMinator.Persistence;
 using FourMinator.RobotServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -52,7 +53,7 @@ builder.Services.AddSwaggerGen( c =>{
                 },
                 new List<string>()
             }
-        });
+     });
 
 });
 
@@ -90,14 +91,9 @@ if (app.Environment.IsDevelopment())
 }
 
 
-
-
+app.UseMiddleware<Auth0Middleware>();
 app.UseRouting();
-
-// Use authentication middleware
-app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
