@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<FourminatorContext>();
 builder.Services.AddControllers();
-builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(x.GetRequiredService<FourminatorContext>()));
+builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(new IdentityProviderRepository(x.GetRequiredService<FourminatorContext>())));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -30,7 +30,7 @@ using (var scope = app.Services.CreateScope())
 if (args.FirstOrDefault() is { } arg && arg.StartsWith("newIdentityProvider="))
 {
     var identityProviderName = arg.Split('=')[1];
-    var newAuthenticator = new IdentityProviderAuthenticator(app.Services.GetRequiredService<FourminatorContext>());
+    var newAuthenticator = new IdentityProviderAuthenticator(new IdentityProviderRepository(app.Services.GetRequiredService<FourminatorContext>()));
     newAuthenticator.CreateIdentityProvider(identityProviderName);
     var authKey = newAuthenticator.GenerateAuthKey();
     newAuthenticator.SaveIdentityProvider();
