@@ -16,11 +16,9 @@ using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var auth0domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
 
-
+builder.Services.AddHttpClient();
 builder.Services.AddDbContext<FourminatorContext>();
-
 builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(new IdentityProviderRepository(x.GetRequiredService<FourminatorContext>())));
 builder.Services.AddScoped(x => new RobotService(new RobotRepository(x.GetRequiredService<FourminatorContext>()), new UserRepository(x.GetRequiredService<FourminatorContext>())));
 builder.Services.AddEndpointsApiExplorer();
