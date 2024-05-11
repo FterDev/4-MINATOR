@@ -22,7 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FourMinator.Auth\FourMinator.Auth.csproj" />
     <ProjectReference Include="..\FourMinator.Game\FourMinator.Game.csproj" />
-    <ProjectReference Include="..\Fourminator.Persistence\Fourminator.Persistence.csproj" />
+    <ProjectReference Include="..\Fourminator.Persistence\FourMinator.Persistence.csproj" />
     <ProjectReference Include="..\FourMinator.Robot\FourMinator.Robot.csproj" />
   </ItemGroup>
 
