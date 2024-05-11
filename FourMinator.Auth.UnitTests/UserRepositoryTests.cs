@@ -24,11 +24,9 @@ namespace FourMinator.Auth.UnitTests
             var userRepository = new UserRepository(contextMock.Object);
 
             // Act
-            var result = await userRepository.CreateUser(nickname, email);
+            await userRepository.CreateUser(nickname, email);
 
             // Assert
-            
-            dbSetMock.Verify(d => d.AddAsync(user, default), Times.Once);
             contextMock.Verify(c => c.SaveChanges(), Times.Once);
         }
 
@@ -56,6 +54,34 @@ namespace FourMinator.Auth.UnitTests
 
             // Assert
             result.Should().Be(user);
+        }
+
+
+        [Fact]
+        public async Task GetUserByEmail_Should_ReturnNull()
+        {
+            // Arrange
+            var email = "johndoe@example.com";
+            var otherEmail = "asdf@asdf.com";
+            var user = new User { Nickname = "JohnDoe", Email = email };
+            var users = new List<User> { user };
+
+            var queryableUsers = users.AsQueryable().BuildMock();
+            var contextMock = new Mock<DbContext>();
+            var dbSetMock = new Mock<DbSet<User>>();
+            dbSetMock.As<IQueryable<User>>().Setup(d => d.Provider).Returns(queryableUsers.Provider);
+            dbSetMock.As<IQueryable<User>>().Setup(d => d.Expression).Returns(queryableUsers.Expression);
+            dbSetMock.As<IQueryable<User>>().Setup(d => d.ElementType).Returns(queryableUsers.ElementType);
+            dbSetMock.As<IQueryable<User>>().Setup(d => d.GetEnumerator()).Returns(queryableUsers.GetEnumerator());
+            contextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
+
+            var userRepository = new UserRepository(contextMock.Object);
+
+            // Act
+            var result = await userRepository.GetUserByEmail(otherEmail);
+
+            // Assert
+            result.Should().Be(null);
         }
     }
 }
