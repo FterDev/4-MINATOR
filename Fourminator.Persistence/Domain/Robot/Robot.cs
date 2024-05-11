@@ -17,3 +17,12 @@ namespace FourMinator.Persistence.Domain
 
     }
 }
+
+
+public enum RobotStatus
+{
+    Offline = -1,
+    Online = 0,
+    Busy = 1,
+    Error = 2
+}
