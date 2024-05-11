@@ -303,3 +303,4 @@ build/
 *.vstest.build.appxrecipe.user.props.user.props.user.props.user.props.user.props.user.props.user.props.user.props.lock
 *.vstest.build.appxrecipe.user.props.user.props.user.props.user.props.user.props.user.props.user.props.user.props.user
 *.vstest.build.appxrecipe.user.props.user.props.user.props
+*.pem
