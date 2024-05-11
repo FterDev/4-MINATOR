@@ -14,10 +14,9 @@ namespace FourMinator.Auth
         public IdentityProvider IdentityProvider { get; set; }
         
 
-        public IdentityProviderAuthenticator(DbContext context)
-        {
-            IdentityProvider = new IdentityProvider();
-            _identityProviderRepository = new IdentityProviderRepository(context);
+        public IdentityProviderAuthenticator(IIdentityProviderRepository identityProviderRepository)
+        {   
+            _identityProviderRepository = identityProviderRepository;
         }
 
        
@@ -71,3 +70,4 @@ namespace FourMinator.Auth
         
     }
 }
+
