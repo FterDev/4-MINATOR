@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator.Game", "FourMin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourMinator.Robot", "FourMinator.Robot\FourMinator.Robot.csproj", "{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fourminator.Persistence", "Fourminator.Persistence\Fourminator.Persistence.csproj", "{236106F0-83AD-4584-AA1D-D6039551848A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{236106F0-83AD-4584-AA1D-D6039551848A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{236106F0-83AD-4584-AA1D-D6039551848A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{236106F0-83AD-4584-AA1D-D6039551848A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{236106F0-83AD-4584-AA1D-D6039551848A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

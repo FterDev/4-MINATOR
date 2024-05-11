@@ -1,4 +1,6 @@
 ﻿
+using FourMinator.Persistence.Domain;
+
 namespace FourMinator.Auth
 {
     public interface IIdentityProviderRepository
