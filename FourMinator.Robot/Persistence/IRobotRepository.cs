@@ -9,7 +9,8 @@ namespace FourMinator.RobotService
 {
     public interface IRobotRepository
     {
-        Task CreateRobot(string name, string password, string thumbprint, string publicKey, User createdBy);
+        Task CreateRobot(Robot robot);
+        Task<ICollection<Robot>> GetAllRobots();
         Task<Robot?> GetRobotById(uint id);
         Task UpdateRobot(Robot robot);
         Task DeleteRobot(Robot robot);
