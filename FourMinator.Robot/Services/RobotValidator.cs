@@ -9,7 +9,7 @@ namespace FourMinator.RobotService.Services
         public RobotValidator()
         {
             RuleFor(r => r.Name).NotEmpty().WithMessage("Name cannot be empty");
-            RuleFor(r => r.Name).MaximumLength(50).WithMessage("Name cannot be longer than 50 characters");
+            RuleFor(r => r.Name).MaximumLength(32).WithMessage("Name cannot be longer than 32 characters");
         }
     }
 }
