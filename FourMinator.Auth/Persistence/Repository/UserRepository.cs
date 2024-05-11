@@ -1,5 +1,5 @@
 ﻿
-using FourMinator.Auth.Persistence.Domain;
+using FourMinator.Persistence.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace FourMinator.Auth

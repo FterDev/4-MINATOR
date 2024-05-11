@@ -1,12 +1,11 @@
-﻿using FourMinator.Auth.Persistence.Domain;
-using FourMinator.Persistence.Domain;
+﻿using FourMinator.Persistence.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 
-namespace Fourminator.Persistence
+namespace FourMinator.Persistence
 {
-    internal class FourminatorContext : DbContext
+    public class FourminatorContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

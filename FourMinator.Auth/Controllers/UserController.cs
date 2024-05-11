@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.AspNetCore.Mvc;
+using FourMinator.Persistence.Domain;
+using FourMinator.Persistence;
+
 
 
 
@@ -12,7 +15,7 @@ namespace FourMinator.Auth
         private IUserRepository _userRepository;
         private IIdentityProviderAuthenticator _identityProviderAuthenticator;
         
-        public UserController(AuthContext context, IIdentityProviderAuthenticator ipAuth)
+        public UserController(FourminatorContext context, IIdentityProviderAuthenticator ipAuth)
         {
             _userRepository = new UserRepository(context);
             _identityProviderAuthenticator = ipAuth;

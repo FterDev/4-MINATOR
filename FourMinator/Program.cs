@@ -1,6 +1,7 @@
 using FourMinator.Auth;
+using FourMinator.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
+
 
 
 
@@ -9,9 +10,9 @@ using System;
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddDbContext<AuthContext>();
+builder.Services.AddDbContext<FourminatorContext>();
 builder.Services.AddControllers();
-builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(x.GetRequiredService<AuthContext>()));
+builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(x.GetRequiredService<FourminatorContext>()));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -20,7 +21,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider
-        .GetRequiredService<AuthContext>();
+        .GetRequiredService<FourminatorContext>();
 
     dbContext.Database.Migrate();
 }
@@ -29,7 +30,7 @@ using (var scope = app.Services.CreateScope())
 if (args.FirstOrDefault() is { } arg && arg.StartsWith("newIdentityProvider="))
 {
     var identityProviderName = arg.Split('=')[1];
-    var newAuthenticator = new IdentityProviderAuthenticator(app.Services.GetRequiredService<AuthContext>());
+    var newAuthenticator = new IdentityProviderAuthenticator(app.Services.GetRequiredService<FourminatorContext>());
     newAuthenticator.CreateIdentityProvider(identityProviderName);
     var authKey = newAuthenticator.GenerateAuthKey();
     newAuthenticator.SaveIdentityProvider();
