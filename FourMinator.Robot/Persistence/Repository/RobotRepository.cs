@@ -4,9 +4,9 @@ using FourMinator.Persistence.Domain;
 using FourMinator.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-namespace FourMinator.RobotService
+namespace FourMinator.RobotServices
 {
-    internal class RobotRepository : IRobotRepository
+    public class RobotRepository : IRobotRepository
     {
         private FourminatorContext _context;
         public RobotRepository(FourminatorContext context)

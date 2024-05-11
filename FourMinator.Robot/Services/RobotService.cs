@@ -1,9 +1,9 @@
 ﻿using FourMinator.Auth;
 using FourMinator.Persistence.Domain;
 
-namespace FourMinator.RobotService.Services
+namespace FourMinator.RobotServices
 {
-    internal class RobotService
+    public class RobotService
     {
         private readonly IRobotRepository _robotRepository;
         private readonly IUserRepository _userRepository;
@@ -51,6 +51,11 @@ namespace FourMinator.RobotService.Services
             return false;
         }
 
+
+        public async Task<ICollection<Robot>> GetAllRobots()
+        {
+            return await _robotRepository.GetAllRobots();
+        }
 
         
         private async Task<bool> ValidateRobot(Robot robot)
