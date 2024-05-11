@@ -23,11 +23,14 @@ namespace Fourminator.Persistence
 
         public DbSet<IdentityProvider> IdentityProviders { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Robot> Robots { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<IdentityProvider>().HasKey(x => x.IdentityProviderId);
             modelBuilder.Entity<User>().HasKey(x => x.Id);
+            modelBuilder.Entity<User>().HasMany(x => x.Robots).WithOne(x => x.CreatedBy);
+            modelBuilder.Entity<Robot>().HasKey(x => x.Id);
         }
     }
 }

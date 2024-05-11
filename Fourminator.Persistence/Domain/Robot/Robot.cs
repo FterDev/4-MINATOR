@@ -3,7 +3,7 @@
 
 namespace FourMinator.Persistence.Domain
 {
-    internal class Robot
+    public class Robot
     {
         public uint Id { get; set; }
         public string Name { get; set; }

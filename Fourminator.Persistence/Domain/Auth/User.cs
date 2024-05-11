@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FourMinator.Persistence.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,7 @@ namespace FourMinator.Auth.Persistence.Domain
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+
+        public ICollection<Robot> Robots { get; set; }
     }
 }
