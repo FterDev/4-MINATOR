@@ -33,11 +33,7 @@ namespace FourMinator.Auth.Middleware
                 error = true;
             }
 
-            if (!authHeader[0].StartsWith("Bearer "))
-            {
-                context.Response.StatusCode = 401;
-                error = true;
-            }
+           
 
             if (error)
             {
@@ -45,9 +41,9 @@ namespace FourMinator.Auth.Middleware
                 return;
             }
 
-            var token = authHeader[0];
+            var token = authHeader[0].Substring("Bearer ".Length);
 
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await _httpClient.GetAsync("https://dev-zs8kctz8n04sgjgm.us.auth0.com/userinfo");
             if (!response.IsSuccessStatusCode)
             {
