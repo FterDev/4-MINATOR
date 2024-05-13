@@ -2,6 +2,7 @@ using FirebaseAdmin;
 using FourMinator.Auth;
 using FourMinator.Persistence;
 using FourMinator.RobotServices;
+using FourMinator.RobotServices.Hubs;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -101,7 +102,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
+app.MapHub<RobotsHub>("/robotsHub");
 
 
 
