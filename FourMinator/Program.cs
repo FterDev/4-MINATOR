@@ -1,17 +1,11 @@
 using FirebaseAdmin;
 using FourMinator.Auth;
-using FourMinator.Auth.Middleware;
 using FourMinator.Persistence;
 using FourMinator.RobotServices;
 using Google.Apis.Auth.OAuth2;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+
 
 
 
@@ -21,7 +15,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"FirebaseConfig.json");
 
-
+builder.Services.AddSignalR();
 builder.Services.AddHttpClient();
 builder.Services.AddDbContext<FourminatorContext>();
 builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(new IdentityProviderRepository(x.GetRequiredService<FourminatorContext>())));
