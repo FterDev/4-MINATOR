@@ -1,5 +1,9 @@
 ﻿using FourMinator.Auth;
+using FourMinator.Persistence;
 using FourMinator.Persistence.Domain;
+using FourMinator.RobotServices.Hubs;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 
 namespace FourMinator.RobotServices
 {
@@ -7,10 +11,15 @@ namespace FourMinator.RobotServices
     {
         private readonly IRobotRepository _robotRepository;
         private readonly IUserRepository _userRepository;
-        public RobotService(IRobotRepository robotRepository, IUserRepository userRepository)
+
+
+        private IHubContext<RobotsHub> HubContext { get; set; }
+
+        public RobotService(FourminatorContext context, IHubContext<RobotsHub> robotsHub)
         {
-            _robotRepository = robotRepository;
-            _userRepository = userRepository;
+            _robotRepository = new RobotRepository(context);
+            _userRepository = new UserRepository(context);
+            HubContext = robotsHub;
         }
 
         public ICollection<string> Errors { get; } = new List<string>();
@@ -49,6 +58,13 @@ namespace FourMinator.RobotServices
             }
            
             return false;
+        }
+
+
+        public async Task UpdateRobotStatus(string name, RobotStatus status)
+        {
+            await _robotRepository.SetStatusByName(name, status);
+            await this.HubContext.Clients.All.SendAsync("ReceiveRobots", await _robotRepository.GetAllRobots());
         }
 
 
