@@ -12,7 +12,7 @@ namespace FourMinator.RobotServices.Hubs
         }
         public async Task GetRobots()
         { 
-            var robots = _robotService.GetAllRobots();
+            var robots = await _robotService.GetAllRobots();
             await Clients.All.SendAsync("ReceiveRobots", robots);
         }
     }
