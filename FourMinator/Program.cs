@@ -3,9 +3,13 @@ using FourMinator.Auth;
 using FourMinator.Persistence;
 using FourMinator.RobotServices;
 using FourMinator.RobotServices.Hubs;
+using FourMinator.RobotServices.MqttControllers;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using MQTTnet;
+using MQTTnet.AspNetCore;
+using MQTTnet.Server;
 
 
 
@@ -17,10 +21,23 @@ var builder = WebApplication.CreateBuilder(args);
 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"FirebaseConfig.json");
 
 builder.Services.AddSignalR();
+var mqttServerOptions = new MqttServerOptionsBuilder().WithDefaultEndpoint().Build();
+
+builder.Services.AddHostedMqttServer(mqttServerOptions);
+builder.Services.AddMqttLogger(logger: new ConsoleLogger());
+builder.Services.AddMqttConnectionHandler();
+builder.Services.AddMqttTcpServerAdapter();
+
+builder.Services.AddConnections();
+
+builder.Services.AddSingleton<MqttController>();
+
+
 builder.Services.AddHttpClient();
-builder.Services.AddDbContext<FourminatorContext>();
+builder.Services.AddSingleton<FourminatorContext>();
+builder.Services.AddScoped<IUserRepository, UserRepository>( x => new UserRepository(x.GetRequiredService<FourminatorContext>()));
 builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(new IdentityProviderRepository(x.GetRequiredService<FourminatorContext>())));
-builder.Services.AddScoped(x => new RobotService(new RobotRepository(x.GetRequiredService<FourminatorContext>()), new UserRepository(x.GetRequiredService<FourminatorContext>())));
+builder.Services.AddSingleton<RobotService>();
 
 builder.Services.AddSingleton<FirebaseApp>(FirebaseApp.Create(new AppOptions()
 {
@@ -98,11 +115,22 @@ if (app.Environment.IsDevelopment())
 }
 
 
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseMqttServer(server =>
+{
+    server.ValidatingConnectionAsync += app.Services.GetRequiredService<MqttController>().ValidateConnection;
+    server.ClientConnectedAsync += app.Services.GetRequiredService<MqttController>().OnClientConnected;
+    server.ClientDisconnectedAsync += app.Services.GetRequiredService<MqttController>().OnClientDisconnected;
+});
 app.MapControllers();
 app.MapHub<RobotsHub>("/robotsHub");
+
+
+
+
 
 
 
