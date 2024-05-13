@@ -37,6 +37,12 @@ namespace FourMinator.RobotServices
             return robot;
         }
 
+        public async Task SetStatusByName(string name, RobotStatus status)
+        {
+            _context.Robots.Where(r => r.Name == name).FirstOrDefault().Status = (Int16)status;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task UpdateRobot(Robot robot)
         {
            var res =  _context.Robots.Update(robot);
