@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Fourminator.Persistence\FourMinator.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Middleware\" />
+  </ItemGroup>
+
 </Project>
