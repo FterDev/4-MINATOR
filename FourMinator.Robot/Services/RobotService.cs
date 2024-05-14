@@ -7,10 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FourMinator.RobotServices
 {
-    public class RobotService
+    public class RobotService : IRobotService
     {
         private readonly IRobotRepository _robotRepository;
         private readonly IUserRepository _userRepository;
+    
 
 
         private IHubContext<RobotsHub> HubContext { get; set; }
@@ -64,11 +65,11 @@ namespace FourMinator.RobotServices
         public async Task UpdateRobotStatus(string name, RobotStatus status)
         {
             await _robotRepository.SetStatusByName(name, status);
-            await this.HubContext.Clients.All.SendAsync("ReceiveRobots", await _robotRepository.GetAllRobots());
+            await this.HubContext.Clients.All.SendAsync("ReceiveRobots",  await this.GetAllRobots());
         }
 
 
-        public async Task<ICollection<Robot>> GetAllRobots()
+        public async Task<IEnumerable<Robot>> GetAllRobots()
         {
             return await _robotRepository.GetAllRobots();
         }
@@ -96,6 +97,7 @@ namespace FourMinator.RobotServices
         {
             return await _userRepository.GetUserByEmail(email);
         }
-        
+
+  
     }
 }
