@@ -1,5 +1,4 @@
 ﻿using FourMinator.Persistence.Domain;
-using FourMinator.RobotServices.Events;
 using FourMinator.RobotServices.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using MQTTnet.Server;
