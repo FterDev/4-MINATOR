@@ -11,7 +11,7 @@ COPY ["FourMinator/FourMinator.csproj", "FourMinator/"]
 COPY ["FourMinator.Auth/FourMinator.Auth.csproj", "FourMinator.Auth/"]
 COPY ["FourMinator.Game/FourMinator.Game.csproj", "FourMinator.Game/"]
 COPY ["Fourminator.Persistence/Fourminator.Persistence.csproj", "Fourminator.Persistence/"]
-COPY ["FourMinator.Robot/FourMinator.Robot.csproj", "FourMinator.Robot/"]
+COPY ["FourMinator.Robot/FourMinator.RobotServices.csproj", "FourMinator.Robot/"]
 RUN dotnet restore "./FourMinator/FourMinator.csproj"
 COPY . .
 WORKDIR "/src/FourMinator"
