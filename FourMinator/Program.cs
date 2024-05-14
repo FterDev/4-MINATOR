@@ -88,13 +88,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider
-        .GetRequiredService<FourminatorContext>();
 
-    dbContext.Database.Migrate();
-}
 
 
 if (args.FirstOrDefault() is { } arg && arg.StartsWith("newIdentityProvider="))
