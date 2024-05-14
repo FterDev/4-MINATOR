@@ -2,7 +2,7 @@ using FirebaseAdmin;
 using FourMinator.Auth;
 using FourMinator.Persistence;
 using FourMinator.RobotServices;
-using FourMinator.RobotServices.Events;
+
 using FourMinator.RobotServices.Hubs;
 using FourMinator.RobotServices.MqttControllers;
 using Google.Apis.Auth.OAuth2;
