@@ -2,6 +2,7 @@ using FirebaseAdmin;
 using FourMinator.Auth;
 using FourMinator.Persistence;
 using FourMinator.RobotServices;
+using FourMinator.RobotServices.Events;
 using FourMinator.RobotServices.Hubs;
 using FourMinator.RobotServices.MqttControllers;
 using Google.Apis.Auth.OAuth2;
@@ -30,22 +31,24 @@ builder.Services.AddMqttTcpServerAdapter();
 
 builder.Services.AddConnections();
 
-builder.Services.AddSingleton<MqttController>();
-
 
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<FourminatorContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>( x => new UserRepository(x.GetRequiredService<FourminatorContext>()));
 builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(new IdentityProviderRepository(x.GetRequiredService<FourminatorContext>())));
-builder.Services.AddSingleton<RobotService>();
 
-builder.Services.AddSingleton<FirebaseApp>(FirebaseApp.Create(new AppOptions()
+
+
+builder.Services.AddSingleton<IRobotService, RobotService>();
+
+
+builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions()
 {
     Credential = GoogleCredential.GetApplicationDefault()
 }));
 
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddSingleton<MqttRobotController>();
 
 
 
@@ -121,13 +124,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseMqttServer(server =>
 {
-    server.ValidatingConnectionAsync += app.Services.GetRequiredService<MqttController>().ValidateConnection;
-    server.ClientConnectedAsync += app.Services.GetRequiredService<MqttController>().OnClientConnected;
-    server.ClientDisconnectedAsync += app.Services.GetRequiredService<MqttController>().OnClientDisconnected;
+    server.ValidatingConnectionAsync += app.Services.GetRequiredService<MqttRobotController>().ValidateConnection;
+    server.ClientConnectedAsync += app.Services.GetRequiredService<MqttRobotController>().OnClientConnected;
+    server.ClientDisconnectedAsync += app.Services.GetRequiredService<MqttRobotController>().OnClientDisconnected;
 });
 app.MapControllers();
 app.MapHub<RobotsHub>("/robotsHub");
-
 
 
 
