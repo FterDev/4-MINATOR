@@ -22,15 +22,6 @@ var builder = WebApplication.CreateBuilder(args);
 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"FirebaseConfig.json");
 
 builder.Services.AddSignalR();
-var mqttServerOptions = new MqttServerOptionsBuilder().WithDefaultEndpoint().Build();
-
-builder.Services.AddHostedMqttServer(mqttServerOptions);
-builder.Services.AddMqttLogger(logger: new ConsoleLogger());
-builder.Services.AddMqttConnectionHandler();
-builder.Services.AddMqttTcpServerAdapter();
-
-builder.Services.AddConnections();
-
 
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<FourminatorContext>();
@@ -116,12 +107,6 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseMqttServer(server =>
-{
-    server.ValidatingConnectionAsync += app.Services.GetRequiredService<MqttRobotController>().ValidateConnection;
-    server.ClientConnectedAsync += app.Services.GetRequiredService<MqttRobotController>().OnClientConnected;
-    server.ClientDisconnectedAsync += app.Services.GetRequiredService<MqttRobotController>().OnClientDisconnected;
-});
 app.MapControllers();
 app.MapHub<RobotsHub>("/robotsHub");
 
