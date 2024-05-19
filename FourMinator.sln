@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator", "FourMinator\FourMinator.csproj", "{28E8E9DD-B959-4834-9060-A719F308236A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.Auth", "FourMinator.Auth\FourMinator.Auth.csproj", "{EE30B632-1F54-4739-AFA8-F9743EE0C63C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.AuthServices", "FourMinator.Auth\FourMinator.AuthServices.csproj", "{EE30B632-1F54-4739-AFA8-F9743EE0C63C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.Game", "FourMinator.Game\FourMinator.Game.csproj", "{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.GameServices", "FourMinator.Game\FourMinator.GameServices.csproj", "{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.RobotServices", "FourMinator.Robot\FourMinator.RobotServices.csproj", "{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}"
 EndProject
