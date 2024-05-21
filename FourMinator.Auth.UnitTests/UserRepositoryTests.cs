@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using FourMinator.Persistence;
 using FourMinator.Persistence.Domain;
 using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
@@ -17,7 +18,8 @@ namespace FourMinator.Auth.UnitTests
             var email = "johndoe@example.com";
             var user = new User { Nickname = nickname, Email = email };
 
-            var contextMock = new Mock<DbContext>();
+
+            var contextMock = new Mock<FourminatorContext>();
             var dbSetMock = new Mock<DbSet<User>>();
             contextMock.Setup(c => c.Set<User>()).Returns(dbSetMock.Object);
 
@@ -39,7 +41,7 @@ namespace FourMinator.Auth.UnitTests
             var users = new List<User> { user };
 
             var queryableUsers = users.AsQueryable().BuildMock();
-            var contextMock = new Mock<DbContext>();
+            var contextMock = new Mock<FourminatorContext>();
             var dbSetMock = new Mock<DbSet<User>>();
             dbSetMock.As<IQueryable<User>>().Setup(d => d.Provider).Returns(queryableUsers.Provider);
             dbSetMock.As<IQueryable<User>>().Setup(d => d.Expression).Returns(queryableUsers.Expression);
@@ -67,7 +69,7 @@ namespace FourMinator.Auth.UnitTests
             var users = new List<User> { user };
 
             var queryableUsers = users.AsQueryable().BuildMock();
-            var contextMock = new Mock<DbContext>();
+            var contextMock = new Mock<FourminatorContext>();
             var dbSetMock = new Mock<DbSet<User>>();
             dbSetMock.As<IQueryable<User>>().Setup(d => d.Provider).Returns(queryableUsers.Provider);
             dbSetMock.As<IQueryable<User>>().Setup(d => d.Expression).Returns(queryableUsers.Expression);

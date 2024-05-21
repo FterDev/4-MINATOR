@@ -2,15 +2,10 @@ using FirebaseAdmin;
 using FourMinator.Auth;
 using FourMinator.Persistence;
 using FourMinator.RobotServices;
-
 using FourMinator.RobotServices.Hubs;
-using FourMinator.RobotServices.MqttControllers;
 using Google.Apis.Auth.OAuth2;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using MQTTnet;
-using MQTTnet.AspNetCore;
-using MQTTnet.Server;
+
 
 
 
@@ -39,7 +34,6 @@ builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions()
 }));
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSingleton<MqttRobotController>();
 
 
 
