@@ -16,7 +16,7 @@ namespace FourMinator.Auth.UnitTests
             // Arrange
             var nickname = "JohnDoe";
             var email = "johndoe@example.com";
-            var user = new User { Nickname = nickname, Email = email };
+            var user = new User { Nickname = nickname, ExternalId = email };
 
 
             var contextMock = new Mock<FourminatorContext>();
@@ -37,7 +37,7 @@ namespace FourMinator.Auth.UnitTests
         {
             // Arrange
             var email = "johndoe@example.com";
-            var user = new User { Nickname = "JohnDoe", Email = email };
+            var user = new User { Nickname = "JohnDoe", ExternalId = email };
             var users = new List<User> { user };
 
             var queryableUsers = users.AsQueryable().BuildMock();
@@ -52,7 +52,7 @@ namespace FourMinator.Auth.UnitTests
             var userRepository = new UserRepository(contextMock.Object);
 
             // Act
-            var result = await userRepository.GetUserByEmail(email);
+            var result = await userRepository.GetUserByNickname(email);
 
             // Assert
             result.Should().Be(user);
@@ -65,7 +65,7 @@ namespace FourMinator.Auth.UnitTests
             // Arrange
             var email = "johndoe@example.com";
             var otherEmail = "asdf@asdf.com";
-            var user = new User { Nickname = "JohnDoe", Email = email };
+            var user = new User { Nickname = "JohnDoe", ExternalId = email };
             var users = new List<User> { user };
 
             var queryableUsers = users.AsQueryable().BuildMock();
@@ -80,7 +80,7 @@ namespace FourMinator.Auth.UnitTests
             var userRepository = new UserRepository(contextMock.Object);
 
             // Act
-            var result = await userRepository.GetUserByEmail(otherEmail);
+            var result = await userRepository.GetUserByNickname(otherEmail);
 
             // Assert
             result.Should().Be(null);
