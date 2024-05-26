@@ -12,15 +12,15 @@ namespace FourMinator.Auth
         {
             _context = context;    
         }
-        public async Task CreateUser(string nickname, string email)
+        public async Task CreateUser(string nickname, string externalId)
         {
-            var res = await  _context.Users.AddAsync(new User { Nickname = nickname, Email = email });
+            var res = await  _context.Users.AddAsync(new User { Nickname = nickname, ExternalId = externalId });
             _context.SaveChanges();
         }
 
-        public async Task<User?> GetUserByEmail(string email)
+        public async Task<User?> GetUserByNickname (string nickname)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Nickname == nickname);
             return user;
         }
     }

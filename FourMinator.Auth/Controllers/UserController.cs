@@ -30,10 +30,10 @@ namespace FourMinator.Auth
         {
             if(_identityProviderAuthenticator.ValidateAuthKey(authKey))
             {
-                var userCheck = await _userRepository.GetUserByEmail(user.Email);
+                var userCheck = await _userRepository.GetUserByNickname(user.Nickname);
                 if(userCheck == null)
                 {
-                    await _userRepository.CreateUser(user.Nickname, user.Email);
+                    await _userRepository.CreateUser(user.Nickname, user.ExternalId);
                     return new OkResult();
                 }
                 else

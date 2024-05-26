@@ -11,7 +11,7 @@ namespace FourMinator.Persistence.Domain
     {
         public int Id { get; set; }
         public string Nickname { get; set; }
-        public string Email { get; set; }
+        public string ExternalId { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
