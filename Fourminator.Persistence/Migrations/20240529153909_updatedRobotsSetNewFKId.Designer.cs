@@ -4,6 +4,7 @@ using FourMinator.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FourMinator.Persistence.Migrations
 {
     [DbContext(typeof(FourminatorContext))]
-    partial class FourminatorContextModelSnapshot : ModelSnapshot
+    [Migration("20240529153909_updatedRobotsSetNewFKId")]
+    partial class updatedRobotsSetNewFKId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,31 +24,6 @@ namespace FourMinator.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("FourMinator.Persistence.Domain.Game.Player", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<uint>("Id"));
-
-                    b.Property<bool>("IsBot")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<short>("State")
-                        .HasColumnType("smallint");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Players");
-                });
 
             modelBuilder.Entity("FourMinator.Persistence.Domain.IdentityProvider", b =>
                 {
@@ -153,15 +131,6 @@ namespace FourMinator.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("FourMinator.Persistence.Domain.Game.Player", b =>
-                {
-                    b.HasOne("FourMinator.Persistence.Domain.User", "User")
-                        .WithOne("Player")
-                        .HasForeignKey("FourMinator.Persistence.Domain.Game.Player", "UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FourMinator.Persistence.Domain.Robot", b =>
                 {
                     b.HasOne("FourMinator.Persistence.Domain.User", "CreatedByUser")
@@ -175,9 +144,6 @@ namespace FourMinator.Persistence.Migrations
 
             modelBuilder.Entity("FourMinator.Persistence.Domain.User", b =>
                 {
-                    b.Navigation("Player")
-                        .IsRequired();
-
                     b.Navigation("Robots");
                 });
 #pragma warning restore 612, 618
