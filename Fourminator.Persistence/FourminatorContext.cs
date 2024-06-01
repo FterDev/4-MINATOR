@@ -17,7 +17,8 @@ namespace FourMinator.Persistence
 
             var connectionString = configuration.GetConnectionString("AuthContext");
             var serverVersion = MySqlServerVersion.AutoDetect(connectionString);
-            optionsBuilder.UseMySql(connectionString, serverVersion);
+            optionsBuilder.UseMySql(connectionString, serverVersion, options => options.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: System.TimeSpan.FromSeconds(30), errorNumbersToAdd: null));
+            
         }
 
 

@@ -20,8 +20,8 @@ namespace FourMinator.Persistence.Domain.Game
     public enum PlayerState
     {
         Offline = -1,
-        Online = 1,
-        MatchMaking = 2,
-        Playing = 3
+        Online = 0,
+        MatchMaking = 1,
+        Playing = 2
     }
 }

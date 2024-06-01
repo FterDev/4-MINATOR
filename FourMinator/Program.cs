@@ -11,6 +11,9 @@ using HiveMQtt.Client.Options;
 using FourMinator.RobotServices.Services;
 using FourMinator.GameServices.Hubs;
 using FourMinator.AuthServices.Middleware;
+using FourMinator.GameServices.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 
 
@@ -22,12 +25,13 @@ using FourMinator.AuthServices.Middleware;
 var builder = WebApplication.CreateBuilder(args);
 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"FirebaseConfig.json");
 
-builder.Services.AddSignalR();
 
-builder.Services.AddHttpClient();
+
+
 builder.Services.AddDbContext<FourminatorContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>( x => new UserRepository(x.GetRequiredService<FourminatorContext>()));
 builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(new IdentityProviderRepository(x.GetRequiredService<FourminatorContext>())));
+builder.Services.AddScoped<ILobbyService, LobbyService>();
 
 
 string broker = "int.mqtt.4-minator.ch";
@@ -62,6 +66,35 @@ builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions()
 builder.Services.AddSingleton<FireAuth>();
 
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://securetoken.google.com/fourminator-zbw";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidAudience = "fourminator-zbw",
+            ValidIssuer = "https://securetoken.google.com/fourminator-zbw",
+            ValidateIssuerSigningKey = false,
+        };
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                context.Token = context.Request.Query["access_token"];
+                return Task.CompletedTask;
+            }
+        };
+    });
+
+
+builder.Services.AddSignalR();
+builder.Services.AddHttpClient();
+builder.Services.AddCors();
 
 
 
@@ -124,7 +157,11 @@ if (app.Environment.IsDevelopment())
     
 }
 
-
+app.UseCors(x => x
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .SetIsOriginAllowed(origin => true));
 
 app.UseRouting();
 app.UseAuthentication();
