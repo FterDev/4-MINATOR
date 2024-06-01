@@ -12,10 +12,10 @@ namespace FourMinator.GameServices.Persistence.Contracts
 
         public Task<Player> CreatePlayer(Player player);
 
-        public Task<bool> UpdatePlayerState(uint playerId, PlayerState state);
+        public Task UpdatePlayerState(uint playerId, PlayerState state);
 
-        public Task<Player> GetPlayerById(uint playerId);
+        public Task<Player?> GetPlayerById(uint playerId);
 
-        public Task<Player> GetPlayerByUserId(int userId);
+        public Task<Player?> GetPlayerByUserId(int userId);
     }
 }
