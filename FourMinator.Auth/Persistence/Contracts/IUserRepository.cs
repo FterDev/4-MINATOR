@@ -5,6 +5,6 @@ namespace FourMinator.Auth
     public interface IUserRepository
     {
         Task<User?> GetUserByNickname(string nickname);
-        Task CreateUser(string nickname, string externalId);
+        Task<User> CreateUser(string nickname, string externalId);
     }
 }

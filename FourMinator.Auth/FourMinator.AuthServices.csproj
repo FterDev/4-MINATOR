@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FourMinator.Game\FourMinator.GameServices.csproj" />
     <ProjectReference Include="..\Fourminator.Persistence\FourMinator.Persistence.csproj" />
   </ItemGroup>
 

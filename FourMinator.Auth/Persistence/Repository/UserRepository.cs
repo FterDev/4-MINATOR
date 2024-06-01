@@ -12,10 +12,12 @@ namespace FourMinator.Auth
         {
             _context = context;    
         }
-        public async Task CreateUser(string nickname, string externalId)
+        public async Task<User> CreateUser(string nickname, string externalId)
         {
             var res = await  _context.Users.AddAsync(new User { Nickname = nickname, ExternalId = externalId });
             _context.SaveChanges();
+            return res.Entity.Id;
+
         }
 
         public async Task<User?> GetUserByNickname (string nickname)
