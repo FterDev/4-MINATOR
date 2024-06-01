@@ -5,6 +5,12 @@ using FourMinator.RobotServices;
 using FourMinator.RobotServices.Hubs;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.OpenApi.Models;
+using HiveMQtt;
+using HiveMQtt.Client;
+using HiveMQtt.Client.Options;
+using FourMinator.RobotServices.Services;
+using FourMinator.GameServices.Hubs;
+using FourMinator.AuthServices.Middleware;
 
 
 
@@ -19,19 +25,41 @@ Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"FirebaseC
 builder.Services.AddSignalR();
 
 builder.Services.AddHttpClient();
-builder.Services.AddSingleton<FourminatorContext>();
+builder.Services.AddDbContext<FourminatorContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>( x => new UserRepository(x.GetRequiredService<FourminatorContext>()));
 builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(new IdentityProviderRepository(x.GetRequiredService<FourminatorContext>())));
 
 
+string broker = "int.mqtt.4-minator.ch";
+int port = 1883;
+string clientId = "4MINATORSVC01";
+string username = "test";
+string password = "it.test99";
 
-builder.Services.AddSingleton<IRobotService, RobotService>();
+
+var mqttClientOptions = new HiveMQClientOptions
+{
+    Host = broker,
+    Port = port,
+    ClientId = clientId,
+    UserName = username,
+    Password = password
+};
 
 
+builder.Services.AddSingleton<IHiveMQClient>(new HiveMQClient(mqttClientOptions));
+builder.Services.AddSingleton<MqttClientService>();
+builder.Services.AddHostedService<MqttBackgroundService>();
+
+
+
+builder.Services.AddScoped<IRobotService, RobotService>();
 builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions()
 {
     Credential = GoogleCredential.GetApplicationDefault()
 }));
+
+builder.Services.AddSingleton<FireAuth>();
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -103,6 +131,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapHub<RobotsHub>("/robotsHub");
+app.MapHub<LobbyHub>("/lobbyHub");
 
 
 

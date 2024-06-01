@@ -1,4 +1,5 @@
 ﻿using FourMinator.Persistence.Domain;
+using FourMinator.Persistence.Domain.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace FourMinator.Persistence.Domain
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         public ICollection<Robot> Robots { get; set; }
+        public Player Player { get; set; }
     }
 }

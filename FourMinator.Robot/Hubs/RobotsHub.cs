@@ -21,6 +21,7 @@ namespace FourMinator.RobotServices.Hubs
         {
             await _robotService.UpdateRobotStatus(robotName, status);
             await Clients.All.SendAsync("ReceiveRobots", await _robotService.GetAllRobots());
+            
         }
     }
 }

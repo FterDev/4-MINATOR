@@ -28,13 +28,15 @@ namespace FourMinator.RobotServices
         public async Task<bool> CreateRobot( string name, string userEmail,  string password, string thumbprint, string publicKey)
         {
 
+            var user = await GetUserByNickname(userEmail);
+
             Robot robot = new Robot()
             {
                 Name = name,
                 Password = password,
                 Thumbprint = thumbprint,
                 PublicKey = publicKey, 
-                CreatedBy = await GetUserByEmail(userEmail),
+                CreatedBy = user.Id,
                 Status = (Int16)RobotStatus.Offline
             };
             
@@ -93,9 +95,9 @@ namespace FourMinator.RobotServices
         }
 
 
-        private async Task<User?> GetUserByEmail(string email)
+        private async Task<User?> GetUserByNickname(string nickname)
         {
-            return await _userRepository.GetUserByEmail(email);
+            return await _userRepository.GetUserByNickname(nickname);
         }
 
   
