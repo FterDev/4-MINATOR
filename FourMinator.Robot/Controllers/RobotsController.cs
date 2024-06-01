@@ -4,6 +4,7 @@ using FirebaseAdmin.Auth;
 using FourMinator.Auth;
 using FourMinator.AuthServices.Middleware;
 using FourMinator.RobotServices.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FourMinator.RobotServices
@@ -26,19 +27,20 @@ namespace FourMinator.RobotServices
 
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAllRobots([FromHeader(Name = "Authorization")] string token)
         {
             
-            token = token.Replace("Bearer ", "");
+            //token = token.Replace("Bearer ", "");
 
-            try
-            {                 
-                var res = await _fireAuth.Authorize(token);
-            }
-            catch (Exception e)
-            {
-                return new UnauthorizedResult();
-            }
+            //try
+            //    var res = await _fireAuth.Authorize(token);
+            //}
+            //{                 
+            //catch (Exception e)
+            //{
+            //    return new UnauthorizedResult();
+            //}
 
             var robots = await _robotService.GetAllRobots();
             foreach (var robot in robots)

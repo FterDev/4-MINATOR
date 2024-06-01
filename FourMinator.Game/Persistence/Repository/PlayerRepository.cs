@@ -37,11 +37,22 @@ namespace FourMinator.GameServices.Persistence.Repository
             return await _context.Players.FirstOrDefaultAsync(p => p.UserId == userId);
         }
 
+        public async Task<Player?> GetPlayerByExternalId(string externalId)
+        {
+            return await _context.Players.FirstOrDefaultAsync(p => p.User.ExternalId == externalId);
+        }
+
+
         public async Task UpdatePlayerState(uint playerId, PlayerState state)
         {
             var player = await _context.Players.FirstAsync(p => p.Id == playerId);
             player.State = (Int16)state;
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Player>> GetAllOnlinePlayers()
+        {
+            return await _context.Players.Where(p => p.State == (Int16)PlayerState.Online).ToListAsync();
         }
     }
 }
