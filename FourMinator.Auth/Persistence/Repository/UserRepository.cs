@@ -16,7 +16,7 @@ namespace FourMinator.Auth
         {
             var res = await  _context.Users.AddAsync(new User { Nickname = nickname, ExternalId = externalId });
             _context.SaveChanges();
-            return res.Entity.Id;
+            return res.Entity;
 
         }
 
