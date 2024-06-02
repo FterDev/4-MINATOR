@@ -28,7 +28,7 @@ namespace FourMinator.GameServices.Persistence.Repository
                 PlayerYellowId = playerYellowId,
                 PlayerRedId = playerRedId,
                 State = 0,
-                WinnerId = 0
+          
             };
 
             await _context.Matches.AddAsync(match);
