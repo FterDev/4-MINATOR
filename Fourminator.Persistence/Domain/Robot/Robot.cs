@@ -1,6 +1,8 @@
 ﻿
 
 
+using FourMinator.Persistence.Domain.Game;
+
 namespace FourMinator.Persistence.Domain
 {
     public class Robot
@@ -17,6 +19,7 @@ namespace FourMinator.Persistence.Domain
 
 
         public User CreatedByUser { get; set; }
+        public ICollection<Match> Matches { get; set; }
     
     }
 
