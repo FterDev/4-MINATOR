@@ -52,7 +52,7 @@ namespace FourMinator.GameServices.Persistence.Repository
 
         public async Task<IEnumerable<Player>> GetAllOnlinePlayers()
         {
-            return await _context.Players.Where(p => p.State == (Int16)PlayerState.Online).ToListAsync();
+            return await _context.Players.Where(p => p.State == (Int16)PlayerState.Online).Include(p => p.User).ToListAsync();
         }
     }
 }

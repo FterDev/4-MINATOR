@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace FourMinator.Persistence.Domain
@@ -18,6 +19,7 @@ namespace FourMinator.Persistence.Domain
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         public ICollection<Robot> Robots { get; set; }
+        [JsonIgnore]
         public Player Player { get; set; }
     }
 }
