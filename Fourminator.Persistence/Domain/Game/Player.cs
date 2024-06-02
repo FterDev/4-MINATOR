@@ -14,7 +14,6 @@ namespace FourMinator.Persistence.Domain.Game
         public Int16 State { get; set; }
         public User? User { get; set; }
         public ICollection<Match> Matches { get; set; }
-
     }
 
 
