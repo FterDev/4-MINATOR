@@ -8,7 +8,6 @@ namespace FourMinator.Persistence.Domain.Game
 {
     public class MatchMoves
     {
-        public uint Id { get; set; }
         public Guid MatchId { get; set; }
         public Int16 MoveNumber { get; set; }
         public Int16 X { get; set; }
