@@ -32,6 +32,7 @@ builder.Services.AddDbContext<FourminatorContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>( x => new UserRepository(x.GetRequiredService<FourminatorContext>()));
 builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(new IdentityProviderRepository(x.GetRequiredService<FourminatorContext>())));
 builder.Services.AddScoped<ILobbyService, LobbyService>();
+builder.Services.AddScoped<IMatchService, MatchService>();
 
 
 string broker = "int.mqtt.4-minator.ch";
