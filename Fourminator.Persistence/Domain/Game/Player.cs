@@ -13,6 +13,7 @@ namespace FourMinator.Persistence.Domain.Game
         public bool IsBot { get; set; }
         public Int16 State { get; set; }
         public User? User { get; set; }
+        public ICollection<Match> Matches { get; set; }
 
     }
 
