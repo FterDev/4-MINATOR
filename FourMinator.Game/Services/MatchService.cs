@@ -15,6 +15,11 @@ namespace FourMinator.GameServices.Services
 
         }
 
+        public async Task AbortMatch(Guid matchId)
+        {
+            await this.UpdateMatchState(matchId, MatchState.Aborted);
+        }
+
         public async Task<Match> CreateMatch(uint player1, uint player2)
         {
             var playerYellowId = RandomColorAssignmnent() ? player1 : player2;

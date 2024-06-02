@@ -14,6 +14,9 @@ namespace FourMinator.GameServices.Services
         Task UpdateMatchWinner(Guid matchId, uint winnerId);
         Task UpdateMatchStones(Guid matchId, Int16 yellowStones, Int16 redStones);
         Task<Match> GetMatchById(Guid matchId);
+
+        Task AbortMatch(Guid matchId);
+
         Task<IEnumerable<Match>> GetMatchesByPlayerId(uint playerId);
     }
 }
