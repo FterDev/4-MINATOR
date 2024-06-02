@@ -15,7 +15,6 @@ namespace FourMinator.Persistence.Domain.Game
         public uint? Winner { get; set; }
         public Int16 YellowStones { get; set; }
         public Int16 RedStones { get; set; }
-        public bool Active { get; set; }
         public Int16 State { get; set; }
         public Player PlayerYellow { get; set; }
         public Player PlayerRed { get; set; }
