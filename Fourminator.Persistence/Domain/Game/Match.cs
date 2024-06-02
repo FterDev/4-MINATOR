@@ -11,14 +11,15 @@ namespace FourMinator.Persistence.Domain.Game
         public Guid Id { get; set; }
         public uint PlayerYellowId { get; set; }
         public uint PlayerRedId { get; set; }
-        public int? Robot { get; set; }
-        public uint? Winner { get; set; }
+        public uint? RobotId { get; set; }
+        public uint? WinnerId { get; set; }
         public Int16 YellowStones { get; set; }
         public Int16 RedStones { get; set; }
         public Int16 State { get; set; }
         public Player PlayerYellow { get; set; }
         public Player PlayerRed { get; set; }
-        public Robot RobotForMatch { get; set; }
+        public Player PlayerWinner { get; set; }
+        public Robot Robot { get; set; }
     }
 
     public enum MatchState
