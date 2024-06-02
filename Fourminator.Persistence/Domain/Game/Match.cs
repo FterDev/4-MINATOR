@@ -13,13 +13,20 @@ namespace FourMinator.Persistence.Domain.Game
         public uint PlayerRedId { get; set; }
         public uint? RobotId { get; set; }
         public uint? WinnerId { get; set; }
-        public Int16 YellowStones { get; set; }
-        public Int16 RedStones { get; set; }
-        public Int16 State { get; set; }
-        public Player PlayerYellow { get; set; }
-        public Player PlayerRed { get; set; }
-        public Player PlayerWinner { get; set; }
-        public Robot Robot { get; set; }
+        public Int16 YellowStones { get; set; } = 21;
+        public Int16 RedStones { get; set; } = 21;
+        public Int16 State { get; set; } = (Int16)MatchState.Pending;
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime? StartedAt { get; set; }
+        public DateTime? FinishedAt { get; set; }
+        public DateTime? AbortedAt { get; set; }
+
+        public Player? PlayerYellow { get; set; }
+        public Player? PlayerRed { get; set; }
+        public Player? PlayerWinner { get; set; }
+        public Robot? Robot { get; set; }
+        public ICollection<MatchMoves> Moves { get; set; }
     }
 
     public enum MatchState
