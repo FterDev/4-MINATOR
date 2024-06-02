@@ -27,6 +27,7 @@ namespace FourMinator.Persistence
         public DbSet<Robot> Robots { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Match> Matches { get; set; }
+        public DbSet<MatchMoves> MatchMoves { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,6 +42,7 @@ namespace FourMinator.Persistence
             modelBuilder.Entity<Match>().HasOne(x => x.Robot).WithMany(x => x.Matches).HasForeignKey(x => x.RobotId);
             modelBuilder.Entity<Match>().HasOne(x => x.PlayerWinner).WithMany(x => x.MatchesAsWinner).HasForeignKey(x => x.WinnerId);
             modelBuilder.Entity<Match>().HasKey(x => x.Id);
+            modelBuilder.Entity<MatchMoves>().HasKey(x => new { x.MatchId, x.MoveNumber });
         }
     }
 }
