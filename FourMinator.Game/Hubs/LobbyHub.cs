@@ -1,4 +1,5 @@
 ﻿using FourMinator.GameServices.Services;
+using FourMinator.Persistence.Domain.Game;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
@@ -35,10 +36,16 @@ namespace FourMinator.GameServices.Hubs
         public async Task RequestMatch(uint playerId)
         {
             var involvedUsers = await _lobbyService.RequestMatch(playerId, Context.UserIdentifier);
-            await GetWaitingPlayers();
+            var requester = involvedUsers["requester"];
+            var target = involvedUsers["target"];
 
-            
-            await Clients.User(involvedUsers["target"].User!.ExternalId).SendAsync("ReceiveMatchRequest", involvedUsers["requester"].User);
+            var waitingPlayers = new List<string> { requester.User!.ExternalId, target.User!.ExternalId };
+
+            await GetWaitingPlayers();
+            var match = await _matchService.CreateMatch(requester.Id, target.Id);            
+            await Clients.User(target.User!.ExternalId).SendAsync("ReceiveMatchRequest", requester.User);
+            await Clients.Users(waitingPlayers).SendAsync("ReceivePendingMatch", match);
+
         }
 
         public override Task OnConnectedAsync()
