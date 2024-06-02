@@ -16,10 +16,12 @@ namespace FourMinator.GameServices.Hubs
     {
 
         private readonly ILobbyService _lobbyService;
+        private readonly IMatchService _matchService;
 
-        public LobbyHub(ILobbyService lobbyService) 
+        public LobbyHub(ILobbyService lobbyService, IMatchService matchService) 
         {
             _lobbyService = lobbyService;
+            _matchService = matchService;
         }
 
 
@@ -34,6 +36,8 @@ namespace FourMinator.GameServices.Hubs
         {
             var involvedUsers = await _lobbyService.RequestMatch(playerId, Context.UserIdentifier);
             await GetWaitingPlayers();
+
+            
             await Clients.User(involvedUsers["target"].User!.ExternalId).SendAsync("ReceiveMatchRequest", involvedUsers["requester"].User);
         }
 
