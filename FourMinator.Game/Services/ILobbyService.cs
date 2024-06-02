@@ -10,10 +10,9 @@ namespace FourMinator.GameServices.Services
     public interface ILobbyService
     {
         Task SetConnectingPlayerOnline(string externalId);
-
         Task SetDisconnectingPlayerOffline(string externalId);
-
         Task<IEnumerable<Player>> GetWaitingPlayers();
+        Task<IDictionary<string, Player>> RequestMatch(uint playerId, string requester);
 
     }
 }

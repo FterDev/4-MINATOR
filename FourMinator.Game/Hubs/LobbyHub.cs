@@ -29,6 +29,14 @@ namespace FourMinator.GameServices.Hubs
             await Clients.All.SendAsync("ReceiveWaitingPlayers", players);
         }
 
+
+        public async Task RequestMatch(uint playerId)
+        {
+            var involvedUsers = await _lobbyService.RequestMatch(playerId, Context.UserIdentifier);
+            await GetWaitingPlayers();
+            await Clients.User(involvedUsers["target"].User!.ExternalId).SendAsync("ReceiveMatchRequest", involvedUsers["requester"].User);
+        }
+
         public override Task OnConnectedAsync()
         {
             
@@ -50,5 +58,6 @@ namespace FourMinator.GameServices.Hubs
 
             return base.OnDisconnectedAsync(exception);
         }
+
     }
 }
