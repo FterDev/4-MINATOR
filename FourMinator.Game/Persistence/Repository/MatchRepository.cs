@@ -36,9 +36,15 @@ namespace FourMinator.GameServices.Persistence.Repository
             return match;
         }
 
+        public async Task DeleteMatch(Match match)
+        {
+            _context.Matches.Remove(match);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Match> GetMatchById(Guid matchId)
         {
-            return await _context.Matches.FindAsync(matchId);
+            return await _context.Matches.Where(m => m.Id == matchId).Include(p => p.PlayerYellow).Include(p => p.PlayerRed).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Match>> GetMatchesByPlayerId(uint playerId)

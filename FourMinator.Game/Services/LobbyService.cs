@@ -43,6 +43,17 @@ namespace FourMinator.GameServices.Services
             }
         }
 
+        public async Task<string> SetPlayerOnline(uint id)
+        {
+            var player = await _playerRepository.GetPlayerById(id);
+            if (player != null)
+            {
+                await _playerRepository.UpdatePlayerState(player.Id, PlayerState.Online);
+                return player.User!.ExternalId;
+            }
+            return "";
+        }
+
         public async Task<IDictionary<string, Player>> RequestMatch(uint playerId, string requester)
         {
             var targetPlayer = await _playerRepository.GetPlayerById(playerId);

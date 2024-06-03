@@ -12,6 +12,8 @@ namespace FourMinator.GameServices.Services
         Task SetConnectingPlayerOnline(string externalId);
         Task SetDisconnectingPlayerOffline(string externalId);
         Task<IEnumerable<Player>> GetWaitingPlayers();
+
+        Task<string> SetPlayerOnline(uint id);
         Task<IDictionary<string, Player>> RequestMatch(uint playerId, string requester);
 
     }
