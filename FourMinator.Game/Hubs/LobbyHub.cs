@@ -44,8 +44,26 @@ namespace FourMinator.GameServices.Hubs
             await GetWaitingPlayers();
             var match = await _matchService.CreateMatch(requester.Id, target.Id);            
             await Clients.User(target.User!.ExternalId).SendAsync("ReceiveMatchRequest", requester.User);
+            await Clients.User(requester.User!.ExternalId).SendAsync("ReceiveTargetUser", target.User);
             await Clients.Users(waitingPlayers).SendAsync("ReceivePendingMatch", match);
+        }
 
+        public async Task CancelMatch(Guid matchId)
+        {
+            var match = await _matchService.GetMatchById(matchId);
+            await _matchService.CancelMatch(matchId);
+            var  player1 = await _lobbyService.SetPlayerOnline(match.PlayerYellowId);
+            var player2 = await _lobbyService.SetPlayerOnline(match.PlayerRedId);
+            await Clients.Users(player1, player2).SendAsync("ReceiveMatchCanceled", matchId);
+            await GetWaitingPlayers();
+        }
+
+        public async Task AcceptMatch(Guid matchId)
+        {
+            var match = await _matchService.GetMatchById(matchId);
+            var player1 = await _lobbyService.SetPlayerOnline(match.PlayerYellowId);
+            var player2 = await _lobbyService.SetPlayerOnline(match.PlayerRedId);
+            await Clients.Users(player1, player2).SendAsync("ReceiveMatchAccepted", match.Id);
         }
 
         public override Task OnConnectedAsync()
