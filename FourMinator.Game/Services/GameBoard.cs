@@ -53,6 +53,11 @@ namespace FourMinator.GameServices.Services
                 if (_board[x, row] == 0)
                 {
                     _board[x, row] = _currentPlayer;
+                    if(GameLogic.CheckWin(_board, _currentPlayer))
+                    {
+                        _winner = _currentPlayer;
+                    }
+                   
                     _currentPlayer *= -1;
                     break;
                 }
