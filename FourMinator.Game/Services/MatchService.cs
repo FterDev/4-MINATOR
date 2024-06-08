@@ -8,13 +8,17 @@ namespace FourMinator.GameServices.Services
     public class MatchService : IMatchService
     {
 
+        private ICollection<IGameBoard> _gameBoards;
+
         private readonly IMatchRepository _matchRepository;
-        public MatchService(FourminatorContext context) { 
+        public MatchService(FourminatorContext context, ICollection<IGameBoard> gameBoards) { 
         
             _matchRepository = new MatchRepository(context);
+            _gameBoards = gameBoards;
 
         }
 
+        public ICollection<IGameBoard> GameBoards => _gameBoards;
         public async Task AbortMatch(Guid matchId)
         {
             await this.UpdateMatchState(matchId, MatchState.Aborted);
@@ -59,9 +63,23 @@ namespace FourMinator.GameServices.Services
             await _matchRepository.UpdateMatchWinner(matchId, winnerId);
         }
 
+        public Task<IGameBoard> GetGameBoard(Guid matchId)
+        {
+            var gameBoard = _gameBoards.FirstOrDefault(x => x.Id == matchId);
+            if (gameBoard == null)
+            {
+                gameBoard = new GameBoard(matchId);
+               
+                _gameBoards.Add(gameBoard);
+            }
+            return Task.FromResult(gameBoard);
+        }
+
         private bool RandomColorAssignmnent()
         {
             return new Random().Next(0, 2) == 0;
         }
+
+
     }
 }
