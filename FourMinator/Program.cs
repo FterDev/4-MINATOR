@@ -33,6 +33,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>( x => new UserReposi
 builder.Services.AddScoped<IIdentityProviderAuthenticator, IdentityProviderAuthenticator>( x => new IdentityProviderAuthenticator(new IdentityProviderRepository(x.GetRequiredService<FourminatorContext>())));
 builder.Services.AddScoped<ILobbyService, LobbyService>();
 builder.Services.AddScoped<IMatchService, MatchService>();
+builder.Services.AddSingleton<ICollection<IGameBoard>>(new List<IGameBoard>());
 
 
 string broker = "int.mqtt.4-minator.ch";

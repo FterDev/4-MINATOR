@@ -4,6 +4,7 @@ using FourMinator.GameServices.Services;
 using FourMinator.Persistence;
 using FourMinator.Persistence.Domain.Game;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,22 @@ namespace FourMinator.GameServices.Hubs
             var players = new List<Player>();
             players.Add(await _playerRepository.GetPlayerById(match.PlayerYellowId));
             players.Add(await _playerRepository.GetPlayerById(match.PlayerRedId));
-            await Clients.Caller.SendAsync("ReceivePlayers", players);
+            await Clients.Caller.SendAsync("ReceivePlayers", players);  
+        }
+
+        public async Task GetGameBoard(string matchId)
+        {
+            var matchGuid = Guid.Parse(matchId);
+            var gameBoard = await _matchService.GetGameBoard(matchGuid);
+            await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+        }
+
+        public async Task MakeMove(int move, string matchId)
+        {
+            var matchGuid = Guid.Parse(matchId);
+            var gameBoard = await _matchService.GetGameBoard(matchGuid);
+            gameBoard.MakeMove(move);
+            await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
         }
 
 
