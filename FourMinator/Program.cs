@@ -14,6 +14,7 @@ using FourMinator.AuthServices.Middleware;
 using FourMinator.GameServices.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 
 
@@ -25,7 +26,8 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"FirebaseConfig.json");
 
-
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 
 builder.Services.AddDbContext<FourminatorContext>();
@@ -158,6 +160,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     
 }
+
+
+app.UseSerilogRequestLogging();
 
 app.UseCors(x => x
             .AllowAnyMethod()
