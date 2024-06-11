@@ -21,5 +21,7 @@ namespace FourMinator.GameServices.Services
         Task CancelMatch(Guid matchId);
         Task<IEnumerable<Match>> GetMatchesByPlayerId(uint playerId);
 
+        Task<Match> CreateMatchAgainstBot(string externalId, short botLevel);
+
     }
 }

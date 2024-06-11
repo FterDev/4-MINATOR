@@ -50,6 +50,15 @@ namespace FourMinator.GameServices.Hubs
             await Clients.Users(waitingPlayers).SendAsync("ReceivePendingMatch", match);
         }
 
+
+        public async Task RequestMatchBot(short botLevel)
+        {
+            var match = await _matchService.CreateMatchAgainstBot(Context.UserIdentifier, botLevel);
+            await Clients.Caller.SendAsync("ReceiveMatchAccepted", match.Id);
+        }
+
+        
+
         public async Task CancelMatch(Guid matchId)
         {
             var match = await _matchService.GetMatchById(matchId);

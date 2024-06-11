@@ -45,14 +45,19 @@ namespace FourMinator.GameServices.Persistence.Repository
 
         public async Task UpdatePlayerState(uint playerId, PlayerState state)
         {
-            var player = await _context.Players.FirstAsync(p => p.Id == playerId);
+            var player = await _context.Players.FirstAsync(p => p.Id == playerId && p.IsBot == false);
             player.State = (Int16)state;
             await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Player>> GetAllOnlinePlayers()
         {
-            return await _context.Players.Where(p => p.State == (Int16)PlayerState.Online).Include(p => p.User).ToListAsync();
+            return await _context.Players.Where(p => p.State == (Int16)PlayerState.Online && p.IsBot == false).Include(p => p.User).ToListAsync();
+        }
+
+        public async Task<Player> GetBot()
+        {
+            return await _context.Players.FirstAsync(p => p.IsBot == true);
         }
     }
 }

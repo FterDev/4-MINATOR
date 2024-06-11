@@ -11,9 +11,11 @@ namespace FourMinator.GameServices.Services
         private ICollection<IGameBoard> _gameBoards;
 
         private readonly IMatchRepository _matchRepository;
+        private readonly IPlayerRepository _playerRepository;
         public MatchService(FourminatorContext context, ICollection<IGameBoard> gameBoards) { 
         
             _matchRepository = new MatchRepository(context);
+            _playerRepository = new PlayerRepository(context);
             _gameBoards = gameBoards;
 
         }
@@ -36,6 +38,17 @@ namespace FourMinator.GameServices.Services
             var playerYellowId = RandomColorAssignmnent() ? player1 : player2;
             var playerRedId = playerYellowId == player1 ? player2 : player1;
             return await _matchRepository.CreateMatch(playerYellowId, playerRedId);
+        }
+
+
+        public async Task<Match> CreateMatchAgainstBot(string externalId, short botLevel)
+        {
+            var player = await _playerRepository.GetPlayerByExternalId(externalId);
+            var bot = await _playerRepository.GetBot();
+            var playerYellowId = RandomColorAssignmnent() ? player : bot;
+            var playerRedId = playerYellowId == player ? bot : player;
+            var match = await _matchRepository.CreateMatch(playerYellowId.Id, playerRedId.Id);
+            return match;
         }
 
         public async Task<Match> GetMatchById(Guid matchId)
