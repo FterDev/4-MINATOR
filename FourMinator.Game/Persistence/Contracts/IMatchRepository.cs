@@ -17,6 +17,8 @@ namespace FourMinator.GameServices.Persistence.Contracts
         Task<Match> GetMatchById(Guid matchId);
         Task<IEnumerable<Match>> GetMatchesByPlayerId(uint playerId);
 
+
+
         Task DeleteMatch(Match match);
     }
 }

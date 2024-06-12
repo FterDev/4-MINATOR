@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FourMinator.BotLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,9 @@ namespace FourMinator.GameServices.Services
         public short Moves { get; }
         public short Winner { get; }
 
+        public Position Position { get; }
+
+        public string MoveSequence { get; }
         public void MakeMove(int x);
 
     }

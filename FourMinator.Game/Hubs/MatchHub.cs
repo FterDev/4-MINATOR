@@ -1,4 +1,5 @@
-﻿using FourMinator.GameServices.Persistence.Contracts;
+﻿using FourMinator.BotLogic;
+using FourMinator.GameServices.Persistence.Contracts;
 using FourMinator.GameServices.Persistence.Repository;
 using FourMinator.GameServices.Services;
 using FourMinator.Persistence;
@@ -17,11 +18,13 @@ namespace FourMinator.GameServices.Hubs
     {
         private readonly IMatchService _matchService;
         private readonly IPlayerRepository _playerRepository;
+        private readonly Solver _solver;
  
-        public MatchHub(IMatchService matchService, FourminatorContext context)
+        public MatchHub(IMatchService matchService, FourminatorContext context, Solver solver)
         {
             _matchService = matchService;
             _playerRepository = new PlayerRepository(context);
+            _solver = solver;
         }
 
         public async Task JoinMatch(Guid matchId)
@@ -53,11 +56,31 @@ namespace FourMinator.GameServices.Hubs
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
         }
 
-        public async Task MakeMove(int move, string matchId)
+        public async Task MakeMove(int move, string matchId, bool isBot)
         {
             var matchGuid = Guid.Parse(matchId);
             var gameBoard = await _matchService.GetGameBoard(matchGuid);
             gameBoard.MakeMove(move);
+
+            if(isBot)
+            {
+                await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+                await Task.Delay(1500);
+
+                var scores = _solver.Analyze(gameBoard.Position, false, 0.0);
+                int bestScore = scores.Max();
+                
+                for (int i = 0; i < scores.Count; i++)
+                {
+                    if (scores[i] == bestScore)
+                    {
+                        gameBoard.MakeMove(i);
+                        break;
+                    }
+                }
+                await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+            }
+
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
         }
 
