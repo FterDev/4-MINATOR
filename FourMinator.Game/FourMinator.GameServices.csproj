@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FourMinator.Bot\FourMinator.BotLogic.csproj" />
     <ProjectReference Include="..\Fourminator.Persistence\FourMinator.Persistence.csproj" />
   </ItemGroup>
 
