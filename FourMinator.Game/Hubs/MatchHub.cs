@@ -69,15 +69,22 @@ namespace FourMinator.GameServices.Hubs
 
                 var scores = _solver.Analyze(gameBoard.Position, false, 0.0);
                 int bestScore = scores.Max();
+                var moveMade = false;
+                List<int> bestMoves = new List<int>();
                 
                 for (int i = 0; i < scores.Count; i++)
                 {
-                    if (scores[i] == bestScore)
+                    if (scores[i] == bestScore && !moveMade)
                     {
-                        gameBoard.MakeMove(i);
-                        break;
+                        bestMoves.Add(i);
                     }
                 }
+
+               
+                Random random = new Random();
+                int randomMove = bestMoves[random.Next(bestMoves.Count)];
+                gameBoard.MakeMove(randomMove);
+
                 await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
             }
 
