@@ -15,6 +15,7 @@ namespace FourMinator.GameServices.Persistence.Contracts
         Task UpdateMatchWinner(Guid matchId, uint winnerId);
         Task UpdateMatchStones(Guid matchId, Int16 yellowStones, Int16 redStones);
         Task<Match> GetMatchById(Guid matchId);
+        Task SetMatchStartAndEndTime(Guid matchId, DateTime startTime, DateTime endTime);
         Task<IEnumerable<Match>> GetMatchesByPlayerId(uint playerId);
 
 
