@@ -13,8 +13,6 @@ namespace FourMinator.Persistence.Domain.Game
         public uint PlayerRedId { get; set; }
         public uint? RobotId { get; set; }
         public uint? WinnerId { get; set; }
-        public Int16 YellowStones { get; set; } = 21;
-        public Int16 RedStones { get; set; } = 21;
         public Int16 State { get; set; } = (Int16)MatchState.Pending;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
