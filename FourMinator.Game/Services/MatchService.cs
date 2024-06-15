@@ -66,10 +66,6 @@ namespace FourMinator.GameServices.Services
             await _matchRepository.UpdateMatchState(matchId, state);
         }
 
-        public async Task UpdateMatchStones(Guid matchId, short yellowStones, short redStones)
-        {
-            await _matchRepository.UpdateMatchStones(matchId, yellowStones, redStones);
-        }
 
         public async Task UpdateMatchWinner(Guid matchId, uint winnerId)
         {

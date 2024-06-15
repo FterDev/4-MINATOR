@@ -67,13 +67,7 @@ namespace FourMinator.GameServices.Persistence.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateMatchStones(Guid matchId, short yellowStones, short redStones)
-        {
-            var match = await _context.Matches.FindAsync(matchId);
-            match.YellowStones = yellowStones;
-            match.RedStones = redStones;
-            await _context.SaveChangesAsync();
-        }
+       
 
         public async Task UpdateMatchWinner(Guid matchId, uint winnerId)
         {
