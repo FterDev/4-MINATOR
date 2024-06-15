@@ -34,6 +34,8 @@ namespace FourMinator.GameServices.Hubs
             if(match.State == (short)MatchState.Pending)
                 await _matchService.UpdateMatchState(matchId, MatchState.Active);
 
+            await _matchService.SetMatchStartAndEndTime(matchId);           
+
             await Groups.AddToGroupAsync(Context.ConnectionId, matchId.ToString());
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveMatch", match);
         }
@@ -53,7 +55,11 @@ namespace FourMinator.GameServices.Hubs
         {
             var matchGuid = Guid.Parse(matchId);
             var gameBoard = await _matchService.GetGameBoard(matchGuid);
+           
+                        
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+
+
         }
 
         public async Task MakeMove(int move, string matchId, bool isBot)

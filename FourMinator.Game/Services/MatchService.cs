@@ -93,6 +93,11 @@ namespace FourMinator.GameServices.Services
             return new Random().Next(0, 2) == 0;
         }
 
-
+        public async Task SetMatchStartAndEndTime(Guid matchId)
+        {
+            var startTime = DateTime.Now;
+            var endTime = startTime.AddMinutes(15);
+            await _matchRepository.SetMatchStartAndEndTime(matchId, startTime, endTime);
+        }
     }
 }

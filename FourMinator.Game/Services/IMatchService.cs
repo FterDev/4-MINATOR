@@ -14,6 +14,7 @@ namespace FourMinator.GameServices.Services
         Task<Match> CreateMatch(uint player1, uint player2);
         Task<IGameBoard> GetGameBoard(Guid matchId);
         Task UpdateMatchState(Guid matchId, MatchState state);
+        Task SetMatchStartAndEndTime(Guid matchId);
         Task UpdateMatchWinner(Guid matchId, uint winnerId);
         Task UpdateMatchStones(Guid matchId, Int16 yellowStones, Int16 redStones);
         Task<Match> GetMatchById(Guid matchId);
