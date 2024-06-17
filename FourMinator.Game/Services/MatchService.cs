@@ -16,6 +16,7 @@ namespace FourMinator.GameServices.Services
         
             _matchRepository = new MatchRepository(context);
             _playerRepository = new PlayerRepository(context);
+
             _gameBoards = gameBoards;
 
         }
@@ -40,7 +41,6 @@ namespace FourMinator.GameServices.Services
             return await _matchRepository.CreateMatch(playerYellowId, playerRedId);
         }
 
-
         public async Task<Match> CreateMatchAgainstBot(string externalId, short botLevel)
         {
             var player = await _playerRepository.GetPlayerByExternalId(externalId);
@@ -50,6 +50,7 @@ namespace FourMinator.GameServices.Services
             var match = await _matchRepository.CreateMatch(playerYellowId.Id, playerRedId.Id);
             return match;
         }
+
 
         public async Task<Match> GetMatchById(Guid matchId)
         {
@@ -65,6 +66,7 @@ namespace FourMinator.GameServices.Services
         {
             await _matchRepository.UpdateMatchState(matchId, state);
         }
+
 
 
         public async Task UpdateMatchWinner(Guid matchId, uint winnerId)
@@ -89,11 +91,13 @@ namespace FourMinator.GameServices.Services
             return new Random().Next(0, 2) == 0;
         }
 
+
         public async Task SetMatchStartAndEndTime(Guid matchId)
         {
             var startTime = DateTime.Now;
             var endTime = startTime.AddMinutes(15);
             await _matchRepository.SetMatchStartAndEndTime(matchId, startTime, endTime);
         }
+
     }
 }

@@ -55,6 +55,7 @@ namespace FourMinator.Persistence.Migrations
                     b.Property<uint?>("WinnerId")
                         .HasColumnType("int unsigned");
 
+
                     b.HasKey("Id");
 
                     b.HasIndex("PlayerRedId");

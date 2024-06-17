@@ -5,6 +5,7 @@
         private int size;
         private readonly (ulong move, int score)[] entries = new (ulong move, int score)[7];
 
+
         public MoveSorter()
         {
             size = 0;

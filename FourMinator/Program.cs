@@ -29,7 +29,6 @@ var builder = WebApplication.CreateBuilder(args);
 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"FirebaseConfig.json");
 
 string openingBookPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "7x6.book");
-
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
@@ -42,6 +41,7 @@ builder.Services.AddScoped<IMatchService, MatchService>();
 builder.Services.AddSingleton<ICollection<IGameBoard>>(new List<IGameBoard>());
 builder.Services.AddSingleton<OpeningBook>(o => new OpeningBook(Position.WIDTH, Position.HEIGHT, openingBookPath));
 builder.Services.AddScoped<Solver>(s => new Solver( s.GetRequiredService<OpeningBook>()));
+
 
 
 string broker = "int.mqtt.4-minator.ch";

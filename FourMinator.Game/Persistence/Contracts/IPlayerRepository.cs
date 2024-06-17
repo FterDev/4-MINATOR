@@ -17,7 +17,7 @@ namespace FourMinator.GameServices.Persistence.Contracts
         public Task<Player?> GetPlayerByExternalId(string externalId);
 
         public Task<IEnumerable<Player>> GetAllOnlinePlayers();
-
         public Task<Player> GetBot();
+
     }
 }

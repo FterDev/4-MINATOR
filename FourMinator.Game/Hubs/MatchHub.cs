@@ -1,3 +1,4 @@
+
 ﻿using FourMinator.BotLogic;
 using FourMinator.GameServices.Persistence.Contracts;
 using FourMinator.GameServices.Persistence.Repository;
@@ -18,6 +19,7 @@ namespace FourMinator.GameServices.Hubs
     {
         private readonly IMatchService _matchService;
         private readonly IPlayerRepository _playerRepository;
+
         private readonly Solver _solver;
  
         public MatchHub(IMatchService matchService, FourminatorContext context, Solver solver)
@@ -34,7 +36,9 @@ namespace FourMinator.GameServices.Hubs
             if(match.State == (short)MatchState.Pending)
                 await _matchService.UpdateMatchState(matchId, MatchState.Active);
 
+
             await _matchService.SetMatchStartAndEndTime(matchId);           
+
 
             await Groups.AddToGroupAsync(Context.ConnectionId, matchId.ToString());
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveMatch", match);
@@ -55,7 +59,6 @@ namespace FourMinator.GameServices.Hubs
         {
             var matchGuid = Guid.Parse(matchId);
             var gameBoard = await _matchService.GetGameBoard(matchGuid);
-           
                         
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
 
@@ -63,10 +66,12 @@ namespace FourMinator.GameServices.Hubs
         }
 
         public async Task MakeMove(int move, string matchId, bool isBot)
+
         {
             var matchGuid = Guid.Parse(matchId);
             var gameBoard = await _matchService.GetGameBoard(matchGuid);
             gameBoard.MakeMove(move);
+
 
             if(isBot)
             {

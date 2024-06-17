@@ -19,12 +19,12 @@ namespace FourMinator.GameServices.Hubs
         private readonly ILobbyService _lobbyService;
         private readonly IMatchService _matchService;
         private readonly ILogger<LobbyHub> _logger;
-
         public LobbyHub(ILogger<LobbyHub> logger,  ILobbyService lobbyService, IMatchService matchService) 
         {
             _lobbyService = lobbyService;
             _matchService = matchService;
             _logger = logger;
+
         }
 
 
@@ -50,15 +50,13 @@ namespace FourMinator.GameServices.Hubs
             await Clients.Users(waitingPlayers).SendAsync("ReceivePendingMatch", match);
         }
 
-
         public async Task RequestMatchBot(short botLevel)
         {
             var match = await _matchService.CreateMatchAgainstBot(Context.UserIdentifier, botLevel);
             await Clients.Caller.SendAsync("ReceiveMatchAccepted", match.Id);
         }
 
-        
-
+     
         public async Task CancelMatch(Guid matchId)
         {
             var match = await _matchService.GetMatchById(matchId);
@@ -81,6 +79,7 @@ namespace FourMinator.GameServices.Hubs
         {
             
             _logger.LogInformation("Client connected: " + Context.ConnectionId);
+
             
             _lobbyService.SetConnectingPlayerOnline(Context.UserIdentifier).Wait();
             GetWaitingPlayers().Wait();
@@ -91,7 +90,9 @@ namespace FourMinator.GameServices.Hubs
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
+
             _logger.LogInformation("Client disconnected: " + Context.ConnectionId);
+
             _lobbyService.SetDisconnectingPlayerOffline(Context.UserIdentifier).Wait();
             GetWaitingPlayers().Wait();
 

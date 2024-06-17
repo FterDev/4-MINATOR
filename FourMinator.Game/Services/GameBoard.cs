@@ -1,4 +1,4 @@
-﻿using FourMinator.BotLogic;
+using FourMinator.BotLogic;
 using FourMinator.Persistence.Domain.Game;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
@@ -16,10 +16,8 @@ namespace FourMinator.GameServices.Services
         private readonly short _rows = 6;
         private readonly short _columns = 7;
         private readonly Position _position = new Position();
-
         private readonly short[,] _board;
         private readonly Guid _id;
-
         private string _moveSequence;
         private short _currentPlayer;
         private short _winner;
@@ -48,6 +46,7 @@ namespace FourMinator.GameServices.Services
             _moveCount = 0;
             _id = matchId;
             _moveSequence = "";
+
             _board = new short[_columns, _rows];
 
             SetRandomPlayer();
@@ -62,10 +61,12 @@ namespace FourMinator.GameServices.Services
                 {
                     _board[x, row] = _currentPlayer;
                     _position.PlayCol(x);
+
                     if(GameLogic.CheckWin(_board, _currentPlayer))
                     {
                         _winner = _currentPlayer;
                     }
+
                     _moveSequence += x.ToString();
                     _currentPlayer *= -1;
                     break;

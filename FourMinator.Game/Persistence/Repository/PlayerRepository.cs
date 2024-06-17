@@ -45,7 +45,9 @@ namespace FourMinator.GameServices.Persistence.Repository
 
         public async Task UpdatePlayerState(uint playerId, PlayerState state)
         {
+
             var player = await _context.Players.FirstAsync(p => p.Id == playerId && p.IsBot == false);
+
             player.State = (Int16)state;
             await _context.SaveChangesAsync();
         }

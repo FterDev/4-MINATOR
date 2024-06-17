@@ -52,6 +52,7 @@ namespace FourMinator.GameServices.Persistence.Repository
             return await _context.Matches.Where(m => m.PlayerYellowId == playerId || m.PlayerRedId == playerId).ToListAsync();
         }
 
+
         public async Task SetMatchStartAndEndTime(Guid matchId, DateTime startTime, DateTime endTime)
         {
             var match = await _context.Matches.FindAsync(matchId);
@@ -67,8 +68,7 @@ namespace FourMinator.GameServices.Persistence.Repository
             await _context.SaveChangesAsync();
         }
 
-       
-
+      
         public async Task UpdateMatchWinner(Guid matchId, uint winnerId)
         {
             var match = await _context.Matches.FindAsync(matchId);
@@ -76,7 +76,5 @@ namespace FourMinator.GameServices.Persistence.Repository
             await _context.SaveChangesAsync();
         }
 
-
-        
     }
 }
