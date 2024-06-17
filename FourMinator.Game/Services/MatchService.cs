@@ -11,9 +11,12 @@ namespace FourMinator.GameServices.Services
         private ICollection<IGameBoard> _gameBoards;
 
         private readonly IMatchRepository _matchRepository;
+        private readonly IPlayerRepository _playerRepository;
         public MatchService(FourminatorContext context, ICollection<IGameBoard> gameBoards) { 
         
             _matchRepository = new MatchRepository(context);
+            _playerRepository = new PlayerRepository(context);
+
             _gameBoards = gameBoards;
 
         }
@@ -38,6 +41,17 @@ namespace FourMinator.GameServices.Services
             return await _matchRepository.CreateMatch(playerYellowId, playerRedId);
         }
 
+        public async Task<Match> CreateMatchAgainstBot(string externalId, short botLevel)
+        {
+            var player = await _playerRepository.GetPlayerByExternalId(externalId);
+            var bot = await _playerRepository.GetBot();
+            var playerYellowId = RandomColorAssignmnent() ? player : bot;
+            var playerRedId = playerYellowId == player ? bot : player;
+            var match = await _matchRepository.CreateMatch(playerYellowId.Id, playerRedId.Id);
+            return match;
+        }
+
+
         public async Task<Match> GetMatchById(Guid matchId)
         {
             return await _matchRepository.GetMatchById(matchId);
@@ -53,10 +67,7 @@ namespace FourMinator.GameServices.Services
             await _matchRepository.UpdateMatchState(matchId, state);
         }
 
-        public async Task UpdateMatchStones(Guid matchId, short yellowStones, short redStones)
-        {
-            await _matchRepository.UpdateMatchStones(matchId, yellowStones, redStones);
-        }
+
 
         public async Task UpdateMatchWinner(Guid matchId, uint winnerId)
         {
@@ -80,6 +91,13 @@ namespace FourMinator.GameServices.Services
             return new Random().Next(0, 2) == 0;
         }
 
+
+        public async Task SetMatchStartAndEndTime(Guid matchId)
+        {
+            var startTime = DateTime.Now;
+            var endTime = startTime.AddMinutes(15);
+            await _matchRepository.SetMatchStartAndEndTime(matchId, startTime, endTime);
+        }
 
     }
 }

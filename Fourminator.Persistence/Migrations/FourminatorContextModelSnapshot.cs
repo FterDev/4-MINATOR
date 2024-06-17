@@ -43,9 +43,6 @@ namespace FourMinator.Persistence.Migrations
                     b.Property<uint>("PlayerYellowId")
                         .HasColumnType("int unsigned");
 
-                    b.Property<short>("RedStones")
-                        .HasColumnType("smallint");
-
                     b.Property<uint?>("RobotId")
                         .HasColumnType("int unsigned");
 
@@ -58,8 +55,6 @@ namespace FourMinator.Persistence.Migrations
                     b.Property<uint?>("WinnerId")
                         .HasColumnType("int unsigned");
 
-                    b.Property<short>("YellowStones")
-                        .HasColumnType("smallint");
 
                     b.HasKey("Id");
 

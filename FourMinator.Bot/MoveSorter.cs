@@ -3,7 +3,8 @@
     public class MoveSorter
     {
         private int size;
-        private readonly (ulong move, int score)[] entries = new (ulong move, int score)[Position.WIDTH];
+        private readonly (ulong move, int score)[] entries = new (ulong move, int score)[7];
+
 
         public MoveSorter()
         {

@@ -7,21 +7,16 @@
         private readonly int height;
         private int depth;
 
-        public OpeningBook(int width, int height)
+
+        public OpeningBook(int width, int height, string filePath)
         {
             this.width = width;
             this.height = height;
-            this.depth = -1;
-            this.transpositionTable = null; // Empty opening book
+ 
+            Load(filePath);
         }
 
-        public OpeningBook(int width, int height, int depth, ITableGetter<ulong, byte> transpositionTable)
-        {
-            this.width = width;
-            this.height = height;
-            this.depth = depth;
-            this.transpositionTable = transpositionTable;
-        }
+
 
         private ITableGetter<ulong, byte> InitTranspositionTable<TPartialKey>(int logSize) where TPartialKey : IConvertible
         {

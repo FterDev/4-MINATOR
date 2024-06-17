@@ -1,4 +1,5 @@
-﻿using FourMinator.Persistence.Domain.Game;
+using FourMinator.BotLogic;
+using FourMinator.Persistence.Domain.Game;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,10 @@ namespace FourMinator.GameServices.Services
 
         private readonly short _rows = 6;
         private readonly short _columns = 7;
-
+        private readonly Position _position = new Position();
         private readonly short[,] _board;
         private readonly Guid _id;
+        private string _moveSequence;
         private short _currentPlayer;
         private short _winner;
         private short _moveCount;
@@ -32,6 +34,10 @@ namespace FourMinator.GameServices.Services
 
         public short Moves => _moveCount;
 
+        public Position Position => _position;
+
+        public string MoveSequence => _moveSequence;
+
         public Guid Id => _id;
 
         public GameBoard(Guid matchId)
@@ -39,6 +45,7 @@ namespace FourMinator.GameServices.Services
             _winner = 0;
             _moveCount = 0;
             _id = matchId;
+            _moveSequence = "";
 
             _board = new short[_columns, _rows];
 
@@ -53,11 +60,14 @@ namespace FourMinator.GameServices.Services
                 if (_board[x, row] == 0)
                 {
                     _board[x, row] = _currentPlayer;
+                    _position.PlayCol(x);
+
                     if(GameLogic.CheckWin(_board, _currentPlayer))
                     {
                         _winner = _currentPlayer;
                     }
-                   
+
+                    _moveSequence += x.ToString();
                     _currentPlayer *= -1;
                     break;
                 }

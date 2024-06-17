@@ -2,7 +2,7 @@
 using FourMinator.Persistence.Domain.Game;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +18,13 @@ namespace FourMinator.GameServices.Hubs
 
         private readonly ILobbyService _lobbyService;
         private readonly IMatchService _matchService;
-
-        public LobbyHub(ILobbyService lobbyService, IMatchService matchService) 
+        private readonly ILogger<LobbyHub> _logger;
+        public LobbyHub(ILogger<LobbyHub> logger,  ILobbyService lobbyService, IMatchService matchService) 
         {
             _lobbyService = lobbyService;
             _matchService = matchService;
+            _logger = logger;
+
         }
 
 
@@ -48,6 +50,13 @@ namespace FourMinator.GameServices.Hubs
             await Clients.Users(waitingPlayers).SendAsync("ReceivePendingMatch", match);
         }
 
+        public async Task RequestMatchBot(short botLevel)
+        {
+            var match = await _matchService.CreateMatchAgainstBot(Context.UserIdentifier, botLevel);
+            await Clients.Caller.SendAsync("ReceiveMatchAccepted", match.Id);
+        }
+
+     
         public async Task CancelMatch(Guid matchId)
         {
             var match = await _matchService.GetMatchById(matchId);
@@ -69,7 +78,8 @@ namespace FourMinator.GameServices.Hubs
         public override Task OnConnectedAsync()
         {
             
-            Console.WriteLine("Client connected: " + Context.ConnectionId);
+            _logger.LogInformation("Client connected: " + Context.ConnectionId);
+
             
             _lobbyService.SetConnectingPlayerOnline(Context.UserIdentifier).Wait();
             GetWaitingPlayers().Wait();
@@ -80,7 +90,9 @@ namespace FourMinator.GameServices.Hubs
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            Console.WriteLine("Client disconnected: " + Context.ConnectionId);
+
+            _logger.LogInformation("Client disconnected: " + Context.ConnectionId);
+
             _lobbyService.SetDisconnectingPlayerOffline(Context.UserIdentifier).Wait();
             GetWaitingPlayers().Wait();
 

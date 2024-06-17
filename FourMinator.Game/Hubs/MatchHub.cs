@@ -1,4 +1,6 @@
-﻿using FourMinator.GameServices.Persistence.Contracts;
+
+﻿using FourMinator.BotLogic;
+using FourMinator.GameServices.Persistence.Contracts;
 using FourMinator.GameServices.Persistence.Repository;
 using FourMinator.GameServices.Services;
 using FourMinator.Persistence;
@@ -17,11 +19,14 @@ namespace FourMinator.GameServices.Hubs
     {
         private readonly IMatchService _matchService;
         private readonly IPlayerRepository _playerRepository;
+
+        private readonly Solver _solver;
  
-        public MatchHub(IMatchService matchService, FourminatorContext context)
+        public MatchHub(IMatchService matchService, FourminatorContext context, Solver solver)
         {
             _matchService = matchService;
             _playerRepository = new PlayerRepository(context);
+            _solver = solver;
         }
 
         public async Task JoinMatch(Guid matchId)
@@ -30,6 +35,10 @@ namespace FourMinator.GameServices.Hubs
 
             if(match.State == (short)MatchState.Pending)
                 await _matchService.UpdateMatchState(matchId, MatchState.Active);
+
+
+            await _matchService.SetMatchStartAndEndTime(matchId);           
+
 
             await Groups.AddToGroupAsync(Context.ConnectionId, matchId.ToString());
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveMatch", match);
@@ -50,14 +59,46 @@ namespace FourMinator.GameServices.Hubs
         {
             var matchGuid = Guid.Parse(matchId);
             var gameBoard = await _matchService.GetGameBoard(matchGuid);
+                        
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+
+
         }
 
-        public async Task MakeMove(int move, string matchId)
+        public async Task MakeMove(int move, string matchId, bool isBot)
+
         {
             var matchGuid = Guid.Parse(matchId);
             var gameBoard = await _matchService.GetGameBoard(matchGuid);
             gameBoard.MakeMove(move);
+
+
+            if(isBot)
+            {
+                await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+                await Task.Delay(1500);
+
+                var scores = _solver.Analyze(gameBoard.Position, false, 0.0);
+                int bestScore = scores.Max();
+                var moveMade = false;
+                List<int> bestMoves = new List<int>();
+                
+                for (int i = 0; i < scores.Count; i++)
+                {
+                    if (scores[i] == bestScore && !moveMade)
+                    {
+                        bestMoves.Add(i);
+                    }
+                }
+
+               
+                Random random = new Random();
+                int randomMove = bestMoves[random.Next(bestMoves.Count)];
+                gameBoard.MakeMove(randomMove);
+
+                await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+            }
+
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
         }
 

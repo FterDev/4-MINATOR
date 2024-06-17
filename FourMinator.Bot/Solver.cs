@@ -4,16 +4,19 @@
     {
         private ulong nodeCount;
         private int[] columnOrder = new int[Position.WIDTH];
-        private OpeningBook book;
+        private OpeningBook _book;
+
         private TranspositionTable<ulong, int> transTable;
         private const int TABLE_SIZE = 24;
         private Random random;
 
-        public Solver()
+        public Solver(OpeningBook book)
         {
             nodeCount = 0;
             transTable = new TranspositionTable<ulong, int>(TABLE_SIZE);
-            book = new OpeningBook(Position.WIDTH, Position.HEIGHT);
+            // -> book = new OpeningBook(Position.WIDTH, Position.HEIGHT);
+            _book = book;
+
             columnOrder = new int[] { 3, 2, 4, 1, 5, 0, 6 };
             random = new Random();
         }
@@ -74,7 +77,9 @@
             }
 
 
-            if ((value = book.Get(position)) != 0)
+
+            if ((value = _book.Get(position)) != 0)
+
             {
                 return value + Position.MIN_SCORE - 1;
             }
@@ -208,9 +213,5 @@
             transTable.Reset();
         }
 
-        public void LoadBook(string bookFile)
-        {
-            book.Load(bookFile);
-        }
     }
 }

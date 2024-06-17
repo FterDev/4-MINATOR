@@ -1,9 +1,5 @@
 ﻿using FourMinator.Persistence.Domain.Game;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace FourMinator.GameServices.Persistence.Contracts
 {
@@ -21,5 +17,7 @@ namespace FourMinator.GameServices.Persistence.Contracts
         public Task<Player?> GetPlayerByExternalId(string externalId);
 
         public Task<IEnumerable<Player>> GetAllOnlinePlayers();
+        public Task<Player> GetBot();
+
     }
 }
