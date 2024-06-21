@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FourMinator.Bot\FourMinator.BotLogic.csproj" />
-    <ProjectReference Include="..\Fourminator.Persistence\FourMinator.Persistence.csproj" />
+    <ProjectReference Include="..\Fourminator.Persistence\Fourminator.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
