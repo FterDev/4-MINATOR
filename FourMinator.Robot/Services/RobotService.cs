@@ -34,7 +34,7 @@ namespace FourMinator.RobotServices
             {
                 Name = name,
                 Password = password,
-                Thumbprint = thumbprint,
+                Salt = thumbprint,
                 PublicKey = publicKey, 
                 CreatedBy = user.Id,
                 Status = (Int16)RobotStatus.Offline
