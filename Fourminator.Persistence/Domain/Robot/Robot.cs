@@ -18,6 +18,9 @@ namespace FourMinator.Persistence.Domain
         [Column("salt")]
         public string? Salt { get; set; }
         public string? PublicKey { get; set; }
+
+        [Column("is_superuser")]
+        public bool IsSuperUser { get; set; }
         public Int16 Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
