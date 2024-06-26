@@ -27,7 +27,7 @@ namespace FourMinator.RobotServices
 
         public ICollection<string> Errors { get; } = new List<string>();
 
-        public async Task<bool> CreateRobot(string name, string userNickname,  string password)
+        public async Task<bool> CreateRobot(string name, string userNickname, string password)
         {
 
             var user = await GetUserByNickname(userNickname);
