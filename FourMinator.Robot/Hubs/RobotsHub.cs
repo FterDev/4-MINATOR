@@ -20,8 +20,21 @@ namespace FourMinator.RobotServices.Hubs
         public async Task UpdateRobotStatus(string robotName, RobotStatus status)
         {
             await _robotService.UpdateRobotStatus(robotName, status);
-            await Clients.All.SendAsync("ReceiveRobots", await _robotService.GetAllRobots());
-            
+            await Clients.All.SendAsync("ReceiveRobots", await _robotService.GetAllRobots());   
+        }
+
+        public async Task CreateRobot(string robotName, string password, string nickname)
+        {
+            var res = await _robotService.CreateRobot(robotName, nickname, password);
+
+            if(res)
+            {
+                await Clients.Caller.SendAsync("CreateSuccess");
+                await GetRobots();
+                return;
+            }
+            await Clients.Caller.SendAsync("CreateError");
+
         }
     }
 }
