@@ -3,7 +3,9 @@ using FourMinator.Persistence;
 using FourMinator.Persistence.Domain;
 using FourMinator.RobotServices.Hubs;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore;
+using RandomString4Net;
+using System.Text;
+using XSystem.Security.Cryptography;
 
 namespace FourMinator.RobotServices
 {
@@ -25,17 +27,19 @@ namespace FourMinator.RobotServices
 
         public ICollection<string> Errors { get; } = new List<string>();
 
-        public async Task<bool> CreateRobot( string name, string userEmail,  string password, string thumbprint, string publicKey)
+        public async Task<bool> CreateRobot(string name, string userNickname,  string password)
         {
 
-            var user = await GetUserByNickname(userEmail);
+            var user = await GetUserByNickname(userNickname);
+
+            var salt = RandomString.GetString(Types.ALPHANUMERIC_MIXEDCASE, 16);
 
             Robot robot = new Robot()
             {
                 Name = name,
-                Password = password,
-                Salt = thumbprint,
-                PublicKey = publicKey,
+                Password = CreatePwHash(password, salt),
+                Salt = salt,
+                PublicKey = "",
                 CreatedBy = user.Id,
                 IsSuperUser = false,
                 Status = (Int16)RobotStatus.Offline
@@ -100,6 +104,23 @@ namespace FourMinator.RobotServices
         {
             return await _userRepository.GetUserByNickname(nickname);
         }
+
+        private string CreatePwHash(string password, string salt)
+        {
+            
+            byte[] bytes = Encoding.UTF8.GetBytes(password+salt);
+            SHA256Managed hashstring = new SHA256Managed();
+            byte[] hash = hashstring.ComputeHash(bytes);
+            string res = string.Empty;
+
+            foreach(byte  b in hash)
+            {
+                res += String.Format("{0:x2}", b);
+            }
+            return res;
+        }
+
+       
 
   
     }
