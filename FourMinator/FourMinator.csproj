@@ -37,7 +37,6 @@
     <ProjectReference Include="..\FourMinator.Bot\FourMinator.BotLogic.csproj" />
     <ProjectReference Include="..\FourMinator.Game\FourMinator.GameServices.csproj" />
     <ProjectReference Include="..\Fourminator.Persistence\Fourminator.Persistence.csproj" />
-    <ProjectReference Include="..\FourMinator.Robot\FourMinator.RobotServices.csproj" />
   </ItemGroup>
 
 </Project>

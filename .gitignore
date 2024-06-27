@@ -305,3 +305,4 @@ build/
 *.vstest.build.appxrecipe.user.props.user.props.user.props
 *.pem
 FourMinator/FirebaseConfig.json
+FourMinator/appsettings.secret.json

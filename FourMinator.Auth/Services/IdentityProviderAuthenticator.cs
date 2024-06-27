@@ -9,7 +9,7 @@ namespace FourMinator.Auth
     public class IdentityProviderAuthenticator : IIdentityProviderAuthenticator
     {
 
-        private IIdentityProviderRepository _identityProviderRepository;
+        private readonly IIdentityProviderRepository _identityProviderRepository;
 
         public IdentityProvider IdentityProvider { get; set; }
         

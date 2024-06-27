@@ -2,17 +2,25 @@
 
 
 using FourMinator.Persistence.Domain.Game;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FourMinator.Persistence.Domain
 {
     public class Robot
     {
         public uint Id { get; set; }
+        [Column("username")]
         public string Name { get; set; }
         public int CreatedBy { get; set; }
+
+        [Column("password_hash")]
         public string? Password { get; set; }
-        public string? Thumbprint { get; set; }
+        [Column("salt")]
+        public string? Salt { get; set; }
         public string? PublicKey { get; set; }
+
+        [Column("is_superuser")]
+        public bool IsSuperUser { get; set; }
         public Int16 Status { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
