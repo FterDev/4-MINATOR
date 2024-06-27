@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.AuthServices", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.GameServices", "FourMinator.Game\FourMinator.GameServices.csproj", "{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.RobotServices", "FourMinator.Robot\FourMinator.RobotServices.csproj", "{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fourminator.Persistence", "Fourminator.Persistence\Fourminator.Persistence.csproj", "{236106F0-83AD-4584-AA1D-D6039551848A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourMinator.BotLogic", "FourMinator.Bot\FourMinator.BotLogic.csproj", "{8C859A75-7A78-4787-AA59-21386A959853}"
@@ -33,10 +31,6 @@ Global
 		{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CC27B9B-3ADA-4CCE-8940-8AA5B98AF678}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A29E8480-5BE7-4736-A58E-3B2C0120E8CD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{236106F0-83AD-4584-AA1D-D6039551848A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{236106F0-83AD-4584-AA1D-D6039551848A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{236106F0-83AD-4584-AA1D-D6039551848A}.Release|Any CPU.ActiveCfg = Release|Any CPU
