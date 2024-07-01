@@ -67,6 +67,7 @@ namespace FourMinator.GameServices.Services
                         _winner = _currentPlayer;
                     }
 
+                    _moveCount++;
                     _moveSequence += x.ToString();
                     _currentPlayer *= -1;
                     break;
