@@ -13,6 +13,7 @@ namespace FourMinator.Persistence.Domain.Game
         public uint PlayerRedId { get; set; }
         public uint? RobotId { get; set; }
         public uint? WinnerId { get; set; }
+        public UInt16? BotLevel { get; set; }
         public Int16 State { get; set; } = (Int16)MatchState.Pending;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
@@ -33,5 +34,12 @@ namespace FourMinator.Persistence.Domain.Game
         Pending = 0,
         Active = 1,
         Finished = 2
+    }
+
+    public enum BotLevel
+    {
+        Easy = 1,
+        Medium = 2,
+        Hard = 3
     }
 }
