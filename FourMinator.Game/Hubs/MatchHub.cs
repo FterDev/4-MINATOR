@@ -6,6 +6,7 @@ using FourMinator.GameServices.Services;
 using FourMinator.Persistence;
 using FourMinator.Persistence.Domain.Game;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace FourMinator.GameServices.Hubs
@@ -67,7 +68,9 @@ namespace FourMinator.GameServices.Hubs
 
             if(isBot)
             {
+                
                 await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+                await Task.Delay(1500);
                 await _matchService.BotMove(matchGuid, botLevel);
                 await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
             }
@@ -88,7 +91,28 @@ namespace FourMinator.GameServices.Hubs
 
         }
 
+        public async Task UseJoker(string matchId, bool isBot, ushort botLevel)
+        {
+            var matchGuid = Guid.Parse(matchId);
+            var gameBoard = await _matchService.GetGameBoard(matchGuid);
+            if(gameBoard.CurrentPlayerJoker != 0)
+            {
+                gameBoard.DecreaseJoker();
+                await _matchService.BotMove(matchGuid, 2);
 
+                if (isBot)
+                {
+                    
+                    await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+                    await Task.Delay(1500);
+                    await _matchService.BotMove(matchGuid, botLevel);
+                    await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+                }
+
+                await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+            }
+            
+        }
 
         
     }

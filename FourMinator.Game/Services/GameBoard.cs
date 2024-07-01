@@ -22,6 +22,7 @@ namespace FourMinator.GameServices.Services
         private short _currentPlayer;
         private short _winner;
         private short _moveCount;
+        private IDictionary<short, short> _currentPlayerJoker;
 
 
 
@@ -38,7 +39,11 @@ namespace FourMinator.GameServices.Services
 
         public string MoveSequence => _moveSequence;
 
+        public short CurrentPlayerJoker => _currentPlayerJoker[_currentPlayer];
+
         public Guid Id => _id;
+
+        public IDictionary<short, short> PlayerJoker => _currentPlayerJoker;
 
         public GameBoard(Guid matchId)
         {
@@ -46,7 +51,7 @@ namespace FourMinator.GameServices.Services
             _moveCount = 0;
             _id = matchId;
             _moveSequence = "";
-
+            _currentPlayerJoker = new Dictionary<short, short>() { { 1, 2 }, { -1, 2 } };
             _board = new short[_columns, _rows];
 
             SetRandomPlayer();
@@ -86,5 +91,9 @@ namespace FourMinator.GameServices.Services
             _currentPlayer = randNumber % 2 == 0 ? (short)-1 : (short)1;
         }
 
+        public void DecreaseJoker()
+        {
+            _currentPlayerJoker[_currentPlayer]--;
+        }
     }
 }

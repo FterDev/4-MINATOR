@@ -119,7 +119,7 @@ namespace FourMinator.GameServices.Services
                     break;
             }
 
-            await Task.Delay(1500);
+            
             var gameBoard = await GetGameBoard(matchId);
             var scores = _solver.Analyze(gameBoard.Position, false, botStrength);
             int bestScore = scores.Max();
@@ -141,7 +141,7 @@ namespace FourMinator.GameServices.Services
 
         public async Task FirstBotMove(Guid matchId)
         {
-            await Task.Delay(1500);
+            
             var gameBoard = await GetGameBoard(matchId);
             gameBoard.MakeMove(3);
             

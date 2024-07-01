@@ -13,6 +13,8 @@ namespace FourMinator.GameServices.Services
     {
         public Guid Id { get; }
         public short CurrentPlayer { get; }
+        public short CurrentPlayerJoker { get; }
+        public IDictionary<short, short> PlayerJoker { get; }
         public short[,] Board { get; }
         public short Moves { get; }
         public short Winner { get; }
@@ -21,6 +23,8 @@ namespace FourMinator.GameServices.Services
 
         public string MoveSequence { get; }
         public void MakeMove(int x);
+
+        public void DecreaseJoker();
 
     }
 }
