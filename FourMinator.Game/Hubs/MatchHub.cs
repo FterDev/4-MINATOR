@@ -7,11 +7,6 @@ using FourMinator.Persistence;
 using FourMinator.Persistence.Domain.Game;
 using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FourMinator.GameServices.Hubs
 {
@@ -20,13 +15,12 @@ namespace FourMinator.GameServices.Hubs
         private readonly IMatchService _matchService;
         private readonly IPlayerRepository _playerRepository;
 
-        private readonly Solver _solver;
+        
  
-        public MatchHub(IMatchService matchService, FourminatorContext context, Solver solver)
+        public MatchHub(IMatchService matchService, FourminatorContext context)
         {
             _matchService = matchService;
             _playerRepository = new PlayerRepository(context);
-            _solver = solver;
         }
 
         public async Task JoinMatch(Guid matchId)
@@ -34,12 +28,10 @@ namespace FourMinator.GameServices.Hubs
             var match = await _matchService.GetMatchById(matchId);
 
             if(match.State == (short)MatchState.Pending)
+            {
                 await _matchService.UpdateMatchState(matchId, MatchState.Active);
-
-
-            await _matchService.SetMatchStartAndEndTime(matchId);           
-
-
+                await _matchService.SetMatchStartAndEndTime(matchId);
+            }
             await Groups.AddToGroupAsync(Context.ConnectionId, matchId.ToString());
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveMatch", match);
         }
@@ -75,32 +67,17 @@ namespace FourMinator.GameServices.Hubs
 
             if(isBot)
             {
-                await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
-                await Task.Delay(1500);
-
-                var scores = _solver.Analyze(gameBoard.Position, false, 0.0);
-                int bestScore = scores.Max();
-                var moveMade = false;
-                List<int> bestMoves = new List<int>();
                 
-                for (int i = 0; i < scores.Count; i++)
-                {
-                    if (scores[i] == bestScore && !moveMade)
-                    {
-                        bestMoves.Add(i);
-                    }
-                }
-
-               
-                Random random = new Random();
-                int randomMove = bestMoves[random.Next(bestMoves.Count)];
-                gameBoard.MakeMove(randomMove);
+                
+                await _matchService.BotMove(matchGuid);
 
                 await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
             }
 
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
         }
+
+
 
 
         
