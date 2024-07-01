@@ -19,7 +19,7 @@ namespace FourMinator.GameServices.Persistence.Repository
             _context = context;
         
         }
-        public async Task<Match> CreateMatch(uint playerYellowId, uint playerRedId)
+        public async Task<Match> CreateMatch(uint playerYellowId, uint playerRedId, ushort botLevel = 0)
         {
             var matchId = Guid.NewGuid();
             var match = new Match
@@ -27,6 +27,7 @@ namespace FourMinator.GameServices.Persistence.Repository
                 Id = matchId,
                 PlayerYellowId = playerYellowId,
                 PlayerRedId = playerRedId,
+                BotLevel = botLevel,
                 State = 0,
           
             };

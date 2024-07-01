@@ -10,7 +10,7 @@ namespace FourMinator.GameServices.Persistence.Contracts
 {
     public interface IMatchRepository
     {
-        Task<Match> CreateMatch(uint playerYellowId, uint playerRedId);
+        Task<Match> CreateMatch(uint playerYellowId, uint playerRedId, ushort botLevel = 0);
         Task UpdateMatchState(Guid matchId, MatchState state);
         Task UpdateMatchWinner(Guid matchId, uint winnerId);
         Task<Match> GetMatchById(Guid matchId);

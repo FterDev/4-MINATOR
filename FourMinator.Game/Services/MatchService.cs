@@ -41,16 +41,16 @@ namespace FourMinator.GameServices.Services
             var playerYellowId = RandomColorAssignmnent() ? player1 : player2;
             var playerRedId = playerYellowId == player1 ? player2 : player1;
             
-            return await _matchRepository.CreateMatch(playerYellowId, playerRedId );
+            return await _matchRepository.CreateMatch(playerYellowId, playerRedId);
         }
 
-        public async Task<Match> CreateMatchAgainstBot(string externalId, short botLevel)
+        public async Task<Match> CreateMatchAgainstBot(string externalId, ushort botLevel)
         {
             var player = await _playerRepository.GetPlayerByExternalId(externalId);
             var bot = await _playerRepository.GetBot();
             var playerYellowId = RandomColorAssignmnent() ? player : bot;
             var playerRedId = playerYellowId == player ? bot : player;
-            var match = await _matchRepository.CreateMatch(playerYellowId.Id, playerRedId.Id);
+            var match = await _matchRepository.CreateMatch(playerYellowId.Id, playerRedId.Id, botLevel);
             return match;
         }
 
