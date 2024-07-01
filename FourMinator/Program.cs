@@ -152,7 +152,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.MapHub<RobotsHub>("/robotsHub");
 app.MapHub<LobbyHub>("/lobbyHub");
 app.MapHub<MatchHub>("/matchHub");
 
