@@ -57,7 +57,7 @@ namespace FourMinator.GameServices.Hubs
 
         }
 
-        public async Task MakeMove(int move, string matchId, bool isBot)
+        public async Task MakeMove(int move, string matchId, bool isBot, ushort botLevel)
 
         {
             var matchGuid = Guid.Parse(matchId);
@@ -69,7 +69,7 @@ namespace FourMinator.GameServices.Hubs
             {
                 
                 
-                await _matchService.BotMove(matchGuid);
+                await _matchService.BotMove(matchGuid, botLevel);
 
                 await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
             }

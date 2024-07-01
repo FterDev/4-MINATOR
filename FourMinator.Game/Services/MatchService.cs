@@ -18,7 +18,7 @@ namespace FourMinator.GameServices.Services
         
             _matchRepository = new MatchRepository(context);
             _playerRepository = new PlayerRepository(context);
-
+            _solver = solver;
             _gameBoards = gameBoards;
 
         }
@@ -102,11 +102,26 @@ namespace FourMinator.GameServices.Services
             await _matchRepository.SetMatchStartAndEndTime(matchId, startTime, endTime);
         }
 
-        public async Task BotMove(Guid matchId)
+        public async Task BotMove(Guid matchId, ushort botlevel)
         {
+
+            double botStrength = 0.0;
+            switch (botlevel)
+            {
+                case 0:
+                    botStrength = 0.3;
+                    break;
+                case 1:
+                    botStrength = 0.1;
+                    break;
+                case 2:
+                    botStrength = 0.0;
+                    break;
+            }
+
             await Task.Delay(1500);
             var gameBoard = await GetGameBoard(matchId);
-            var scores = _solver.Analyze(gameBoard.Position, false, 0.0);
+            var scores = _solver.Analyze(gameBoard.Position, false, botStrength);
             int bestScore = scores.Max();
             var moveMade = false;
             List<int> bestMoves = new List<int>();
