@@ -67,16 +67,26 @@ namespace FourMinator.GameServices.Hubs
 
             if(isBot)
             {
-                
-                
+                await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
                 await _matchService.BotMove(matchGuid, botLevel);
-
                 await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
             }
 
             await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
         }
 
+
+        public async Task FirstBotMove(string matchId)
+        {
+            var gameBoard = await _matchService.GetGameBoard(Guid.Parse(matchId));
+
+            if(gameBoard.Moves == 0)
+            {
+                await _matchService.FirstBotMove(Guid.Parse(matchId));
+                await Clients.Group(matchId.ToString()).SendAsync("ReceiveGameBoard", JsonConvert.SerializeObject(gameBoard));
+            }   
+
+        }
 
 
 
