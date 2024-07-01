@@ -1,4 +1,5 @@
-﻿using FourMinator.GameServices.Persistence.Contracts;
+﻿using FourMinator.BotLogic;
+using FourMinator.GameServices.Persistence.Contracts;
 using FourMinator.GameServices.Persistence.Repository;
 using FourMinator.Persistence;
 using FourMinator.Persistence.Domain.Game;
@@ -12,7 +13,8 @@ namespace FourMinator.GameServices.Services
 
         private readonly IMatchRepository _matchRepository;
         private readonly IPlayerRepository _playerRepository;
-        public MatchService(FourminatorContext context, ICollection<IGameBoard> gameBoards) { 
+        private readonly Solver _solver;
+        public MatchService(FourminatorContext context, ICollection<IGameBoard> gameBoards, Solver solver) { 
         
             _matchRepository = new MatchRepository(context);
             _playerRepository = new PlayerRepository(context);
@@ -38,7 +40,8 @@ namespace FourMinator.GameServices.Services
         {
             var playerYellowId = RandomColorAssignmnent() ? player1 : player2;
             var playerRedId = playerYellowId == player1 ? player2 : player1;
-            return await _matchRepository.CreateMatch(playerYellowId, playerRedId);
+            
+            return await _matchRepository.CreateMatch(playerYellowId, playerRedId );
         }
 
         public async Task<Match> CreateMatchAgainstBot(string externalId, short botLevel)
@@ -95,9 +98,39 @@ namespace FourMinator.GameServices.Services
         public async Task SetMatchStartAndEndTime(Guid matchId)
         {
             var startTime = DateTime.Now;
-            var endTime = startTime.AddMinutes(15);
+            var endTime = startTime.AddMinutes(10);
             await _matchRepository.SetMatchStartAndEndTime(matchId, startTime, endTime);
         }
+
+        public async Task BotMove(Guid matchId)
+        {
+            await Task.Delay(1500);
+            var gameBoard = await GetGameBoard(matchId);
+            var scores = _solver.Analyze(gameBoard.Position, false, 0.0);
+            int bestScore = scores.Max();
+            var moveMade = false;
+            List<int> bestMoves = new List<int>();
+
+            for (int i = 0; i < scores.Count; i++)
+            {
+                if (scores[i] == bestScore && !moveMade)
+                {
+                    bestMoves.Add(i);
+                }
+            }
+
+            Random random = new Random();
+            int randomMove = bestMoves[random.Next(bestMoves.Count)];
+            gameBoard.MakeMove(randomMove);
+        }
+
+        public async Task FirstBotMove(Guid matchId)
+        {
+            await Task.Delay(1500);
+            var gameBoard = await GetGameBoard(matchId);
+            gameBoard.MakeMove(3);
+            
+        }   
 
     }
 }
